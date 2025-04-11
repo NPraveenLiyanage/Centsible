@@ -1,147 +1,146 @@
 package com.example.centsible
 
-import android.app.DatePickerDialog
 import android.content.Context
 import android.os.Bundle
-import android.text.InputType
-import android.widget.Toast
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.centsible.databinding.ActivityAddTransactionBinding
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import java.util.*
 
 class AddTransactionActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAddTransactionBinding
-    private val sharedPref by lazy { getSharedPreferences("PersonalFinancePrefs", Context.MODE_PRIVATE) }
-    private val gson = Gson()
-    private val transactionsKey = "transactions"
-    private var isEditMode = false
-    private var editingTransactionId: String? = null
-    private var transactionList: MutableList<Transaction> = mutableListOf()
+    private val sharedPref by lazy {
+        getSharedPreferences("PersonalFinancePrefs", Context.MODE_PRIVATE)
+    }
 
-    // Sample categories – "Salary" is considered income; others represent expense categories.
-    private val categories = arrayOf("Food", "Transport", "Bills", "Entertainment", "Salary", "Other")
+    // Combined Expense Categories (original + new requested ones)
+    private val expenseCategories = listOf(
+        // Previously defined expense categories:
+        CategoryItem("Food", "🍔"),
+        CategoryItem("Transport", "🚞"),
+        CategoryItem("Bills", "💶"),
+        CategoryItem("Entertainment", "🎬"),
+        CategoryItem("Shopping", "🛍️"),
+        CategoryItem("Health", "🏥"),
+        CategoryItem("Travel", "✈️"),
+        CategoryItem("Utilities", "💡"),
+        CategoryItem("Education", "🎓"),
+        // Additional requested expense categories:
+        CategoryItem("Phone", "📱"),
+        CategoryItem("Beauty", "💄"),
+        CategoryItem("Sports", "⚽"),
+        CategoryItem("Social", "👥"),
+        CategoryItem("Clothing", "👗"),
+        CategoryItem("Car", "🚗"),
+        CategoryItem("Alcohol", "🍺"),
+        CategoryItem("Electronics", "📺"),
+        CategoryItem("Pets", "🐶"),
+        CategoryItem("Repair", "🔧"),
+        CategoryItem("Housing", "🏠"),
+        CategoryItem("Home", "🏡"),
+        CategoryItem("Gift", "🎁"),
+        CategoryItem("Donation", "🤝"),
+        CategoryItem("Kids", "👶"),
+        CategoryItem("Other Expense", "💸")
+    )
+
+    // Already defined income categories remain intact.
+    private val incomeCategories = listOf(
+        CategoryItem("Salary", "💰"),
+        CategoryItem("Business", "🏢"),
+        CategoryItem("Investments", "💵"),
+        CategoryItem("Freelance", "💻"),
+        CategoryItem("Rental Income", "🏠"),
+        CategoryItem("Interest", "💲"),
+        CategoryItem("Dividends", "💳"),
+        CategoryItem("Other Income", "🎁")
+    )
+
+    // Flag indicating whether the current tab is Income (true) or Expense (false)
+    private var isIncomeSelected: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddTransactionBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Determine if we are in edit mode.
-        isEditMode = intent.getBooleanExtra("edit", false)
-        editingTransactionId = intent.getStringExtra("transactionId")
-        loadTransactions()
+        // (Optional) Hide any inline form if it exists—in our new design we rely on the Bottom Sheet.
+        binding.formLayout.visibility = View.GONE
 
-        // Setup the category spinner.
-        binding.spinnerCategory.adapter = android.widget.ArrayAdapter(
-            this, android.R.layout.simple_spinner_dropdown_item, categories
-        )
+        // Configure the TabLayout with two tabs: Expense and Income.
+        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Expense"))
+        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Income"))
 
-        // If editing an existing transaction, populate the fields with its data.
-        if (isEditMode && editingTransactionId != null) {
-            val transaction = transactionList.find { it.id == editingTransactionId }
-            transaction?.let {
-                binding.etTitle.setText(it.title)
-                binding.etAmount.setText(it.amount.toString())
-                val index = categories.indexOf(it.category)
-                if (index >= 0) binding.spinnerCategory.setSelection(index)
-                binding.etDate.setText(it.date)
+        // Setup RecyclerView using a GridLayoutManager (3 columns) for category selection.
+        binding.rvCategories.layoutManager = GridLayoutManager(this, 3)
+        // Initially load expense categories.
+        loadCategories(expenseCategories)
+        isIncomeSelected = false
+
+        // Listen for tab selection changes.
+        binding.tabLayout.addOnTabSelectedListener(object :
+            com.google.android.material.tabs.TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: com.google.android.material.tabs.TabLayout.Tab?) {
+                if (tab != null) {
+                    when (tab.position) {
+                        0 -> { // Expense tab
+                            loadCategories(expenseCategories)
+                            isIncomeSelected = false
+                        }
+                        1 -> { // Income tab
+                            loadCategories(incomeCategories)
+                            isIncomeSelected = true
+                        }
+                    }
+                    // (Optional) No inline form to clear since all details are now entered in a Bottom Sheet.
+                }
             }
-        }
-
-        // Set up the date field to open a DatePicker when tapped.
-        binding.etDate.inputType = InputType.TYPE_NULL
-        binding.etDate.setOnClickListener { showDatePicker() }
-
-        // Handle the Save button.
-        binding.btnSave.setOnClickListener { saveTransaction() }
+            override fun onTabUnselected(tab: com.google.android.material.tabs.TabLayout.Tab?) {}
+            override fun onTabReselected(tab: com.google.android.material.tabs.TabLayout.Tab?) {}
+        })
     }
 
-    private fun loadTransactions() {
-        val json = sharedPref.getString(transactionsKey, null)
-        transactionList = if (json != null) {
-            val type = object : TypeToken<MutableList<Transaction>>() {}.type
-            gson.fromJson(json, type)
-        } else {
-            mutableListOf()
-        }
-    }
-
-    private fun saveTransactions() {
-        val editor = sharedPref.edit()
-        val json = gson.toJson(transactionList)
-        editor.putString(transactionsKey, json)
-        editor.apply()
-    }
-
-    private fun showDatePicker() {
-        val calendar = Calendar.getInstance()
-        val datePickerDialog = DatePickerDialog(
-            this,
-            { _, year, month, dayOfMonth ->
-                // Format the date as YYYY-MM-DD.
-                val formattedMonth = month + 1 // Month is zero-indexed.
-                val formattedDate = String.format("%04d-%02d-%02d", year, formattedMonth, dayOfMonth)
-                binding.etDate.setText(formattedDate)
-            },
-            calendar.get(Calendar.YEAR),
-            calendar.get(Calendar.MONTH),
-            calendar.get(Calendar.DAY_OF_MONTH)
-        )
-        datePickerDialog.show()
-    }
-
-    private fun saveTransaction() {
-        val title = binding.etTitle.text.toString().trim()
-        val amountStr = binding.etAmount.text.toString().trim()
-        val date = binding.etDate.text.toString().trim()
-        val category = binding.spinnerCategory.selectedItem?.toString() ?: ""
-
-        // Validate the Title.
-        if (title.isEmpty()) {
-            binding.etTitle.error = "Title is required"
-            binding.etTitle.requestFocus()
-            return
-        }
-
-        // Validate the Amount.
-        if (amountStr.isEmpty()) {
-            binding.etAmount.error = "Amount is required"
-            binding.etAmount.requestFocus()
-            return
-        }
-
-        val amount = amountStr.toDoubleOrNull() ?: run {
-            binding.etAmount.error = "Enter a valid number"
-            binding.etAmount.requestFocus()
-            return
-        }
-
-        // Validate the Date.
-        if (date.isEmpty()) {
-            binding.etDate.error = "Date is required"
-            binding.etDate.requestFocus()
-            return
-        }
-
-        // Determine if the transaction is income (assuming "Salary" means income).
-        val isIncome = category == "Salary"
-
-        // Update or add the transaction.
-        if (isEditMode && editingTransactionId != null) {
-            val index = transactionList.indexOfFirst { it.id == editingTransactionId }
-            if (index != -1) {
-                transactionList[index] = Transaction(editingTransactionId!!, title, amount, category, date, isIncome)
+    // Instead of revealing a long scrollable form, we launch a Bottom Sheet dialog for transaction details.
+    private fun loadCategories(categories: List<CategoryItem>) {
+        val adapter = CategoryAdapter(categories) { category ->
+            // When a category is selected, create and show the Bottom Sheet.
+            val bottomSheet = TransactionDetailBottomSheet.newInstance(category, isIncomeSelected)
+            bottomSheet.onTransactionSaved = {
+                // Optionally perform actions (e.g., refresh data or finish the activity).
+                finish()
             }
-        } else {
-            val newTransaction = Transaction(UUID.randomUUID().toString(), title, amount, category, date, isIncome)
-            transactionList.add(newTransaction)
+            bottomSheet.show(supportFragmentManager, "TransactionDetailBottomSheet")
+        }
+        binding.rvCategories.adapter = adapter
+    }
+
+    // RecyclerView Adapter for displaying category items.
+    inner class CategoryAdapter(
+        private val categories: List<CategoryItem>,
+        private val onItemClick: (CategoryItem) -> Unit
+    ) : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
+
+        inner class CategoryViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
+            val tvCategory: TextView = view.findViewById(R.id.tvCategoryItem)
         }
 
-        saveTransactions()
-        Toast.makeText(this, "Transaction saved", Toast.LENGTH_SHORT).show()
-        finish()  // Return to MainActivity.
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
+            val view = LayoutInflater.from(parent.context)
+                .inflate(R.layout.item_category, parent, false)
+            return CategoryViewHolder(view)
+        }
+
+        override fun getItemCount(): Int = categories.size
+
+        override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
+            val category = categories[position]
+            holder.tvCategory.text = "${category.emoji} ${category.name}"
+            holder.itemView.setOnClickListener { onItemClick(category) }
+        }
     }
 }

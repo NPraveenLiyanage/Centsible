@@ -1,9 +1,10 @@
-package com.example.centsible
+package com.example.centsible.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.centsible.Transaction
 import com.example.centsible.databinding.ItemTransactionBinding
 
 class TransactionAdapter(

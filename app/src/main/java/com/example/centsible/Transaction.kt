@@ -9,3 +9,8 @@ data class Transaction(
     val date: String,  // Format: YYYY-MM-DD
     val isIncome: Boolean
 )
+
+data class CategoryItem(
+    val name: String,
+    val emoji: String
+)

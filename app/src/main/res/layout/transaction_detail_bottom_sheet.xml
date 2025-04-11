@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bottomSheetLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Display Selected Category -->
+    <TextView
+        android:id="@+id/tvSelectedCategoryBS"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Selected Category"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:padding="8dp"/>
+
+    <!-- Transaction Title -->
+    <EditText
+        android:id="@+id/etTitleBS"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Transaction Title"
+        android:layout_marginTop="8dp"/>
+
+    <!-- Amount -->
+    <EditText
+        android:id="@+id/etAmountBS"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Amount"
+        android:inputType="numberDecimal"
+        android:layout_marginTop="8dp"/>
+
+    <!-- Date Field -->
+    <EditText
+        android:id="@+id/etDateBS"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Date (YYYY-MM-DD)"
+        android:clickable="true"
+        android:focusable="false"
+        android:layout_marginTop="8dp"/>
+
+    <!-- Save Button -->
+    <Button
+        android:id="@+id/btnSaveBS"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Save Transaction"
+        android:layout_marginTop="16dp"/>
+</LinearLayout>

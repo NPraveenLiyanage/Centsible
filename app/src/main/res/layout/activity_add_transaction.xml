@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp">
@@ -10,40 +12,81 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/etTitle"
+        <!-- TabLayout for Expense and Income -->
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Transaction Title"/>
+            android:layout_height="wrap_content" />
 
-        <EditText
-            android:id="@+id/etAmount"
+        <!-- RecyclerView for category grid -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvCategories"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Amount"
-            android:inputType="numberDecimal"
-            android:layout_marginTop="8dp"/>
+            android:layout_marginTop="8dp"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="3" />
 
-        <Spinner
-            android:id="@+id/spinnerCategory"
+        <!-- Divider -->
+        <View
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"/>
+            android:layout_height="1dp"
+            android:background="#CCCCCC"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp" />
 
-        <EditText
-            android:id="@+id/etDate"
+        <!-- Form Layout (hidden until a category is selected) -->
+        <LinearLayout
+            android:id="@+id/formLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Date (YYYY-MM-DD)"
-            android:focusable="false"
-            android:clickable="true"
-            android:layout_marginTop="8dp"/>
+            android:orientation="vertical"
+            android:visibility="gone">
 
-        <Button
-            android:id="@+id/btnSave"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Save"
-            android:layout_marginTop="16dp"/>
+            <!-- Display selected category -->
+            <TextView
+                android:id="@+id/tvSelectedCategory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Selected Category"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:padding="8dp" />
+
+            <!-- Transaction Title -->
+            <EditText
+                android:id="@+id/etTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Transaction Title"
+                android:layout_marginTop="8dp" />
+
+            <!-- Amount -->
+            <EditText
+                android:id="@+id/etAmount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Amount"
+                android:inputType="numberDecimal"
+                android:layout_marginTop="8dp" />
+
+            <!-- Date Field -->
+            <EditText
+                android:id="@+id/etDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Date (YYYY-MM-DD)"
+                android:clickable="true"
+                android:focusable="false"
+                android:layout_marginTop="8dp" />
+
+            <!-- Save Button -->
+            <Button
+                android:id="@+id/btnSave"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Save Transaction"
+                android:layout_marginTop="16dp" />
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>
