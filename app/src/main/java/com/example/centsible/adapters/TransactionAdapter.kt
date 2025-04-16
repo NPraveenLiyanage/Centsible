@@ -1,6 +1,7 @@
 package com.example.centsible.adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -13,12 +14,74 @@ class TransactionAdapter(
     private val onDeleteClick: (Transaction) -> Unit
 ) : RecyclerView.Adapter<TransactionAdapter.TransactionViewHolder>() {
 
+    // Mapping category names to their associated emojis.
+    private val categoryEmojis = mapOf(
+        "Food" to "🍔",
+        "Transport" to "🚗",
+        "Bills" to "💳",
+        "Entertainment" to "🎬",
+        "Shopping" to "🛍️",
+        "Health" to "🏥",
+        "Travel" to "✈️",
+        "Utilities" to "🔌",
+        "Education" to "🎓",
+        "Phone" to "📱",
+        "Beauty" to "💄",
+        "Sports" to "⚽",
+        "Social" to "👥",
+        "Clothing" to "👗",
+        "Car" to "🚗",
+        "Alcohol" to "🍺",
+        "Electronics" to "📺",
+        "Pets" to "🐶",
+        "Repair" to "🔧",
+        "Housing" to "🏠",
+        "Home" to "🏡",
+        "Gift" to "🎁",
+        "Donation" to "🤝",
+        "Kids" to "👶",
+        "Other Expense" to "💸",
+        "Salary" to "💰",
+        "Business" to "🏢",
+        "Investments" to "💵",
+        "Freelance" to "💻",
+        "Rental Income" to "🏠",
+        "Interest" to "💲",
+        "Dividends" to "💳",
+        "Other Income" to "🎁"
+    )
+
+    init {
+        // We enable stable IDs so that RecyclerView can optimize changes.
+        setHasStableIds(true)
+    }
+
     inner class TransactionViewHolder(val binding: ItemTransactionBinding) :
-        RecyclerView.ViewHolder(binding.root)
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(transaction: Transaction) {
+            with(binding) {
+                // Set category emoji (default to a question mark if not found)
+                tvCategoryIcon.text = categoryEmojis[transaction.category] ?: "❓"
+                // Bind transaction details.
+                tvTitle.text = transaction.title
+                tvDate.text = transaction.date
+                tvAmount.text = if (transaction.isIncome) "+LKR${transaction.amount}" else "-LKR${transaction.amount}"
+                // Optionally display the category summary.
+                tvTransactionSummary.text = transaction.category
+                tvTransactionSummary.visibility = if (transaction.category.isNotEmpty()) View.VISIBLE else View.GONE
+
+                // Set click listeners for editing and deletion.
+                root.setOnClickListener { onItemClick(transaction) }
+                ibDelete.setOnClickListener { onDeleteClick(transaction) }
+            }
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TransactionViewHolder {
         val binding = ItemTransactionBinding.inflate(
-            LayoutInflater.from(parent.context), parent, false
+            LayoutInflater.from(parent.context),
+            parent,
+            false
         )
         return TransactionViewHolder(binding)
     }
@@ -26,20 +89,17 @@ class TransactionAdapter(
     override fun getItemCount(): Int = transactions.size
 
     override fun onBindViewHolder(holder: TransactionViewHolder, position: Int) {
-        val transaction = transactions[position]
-        with(holder.binding) {
-            tvTitle.text = transaction.title
-            tvDate.text = transaction.date
-            tvAmount.text = if (transaction.isIncome)
-                "+$${transaction.amount}" else "-$${transaction.amount}"
-            // Set click listeners
-            root.setOnClickListener { onItemClick(transaction) }
-            ibDelete.setOnClickListener { onDeleteClick(transaction) }
-        }
+        holder.bind(transactions[position])
+    }
+
+    override fun getItemId(position: Int): Long {
+        // Return a stable item id using the hash code of the transaction ID.
+        return transactions[position].id.hashCode().toLong()
     }
 
     /**
-     * Updates the data using DiffUtil to calculate minimal changes.
+     * Use DiffUtil to compare the old and new lists, update data,
+     * and dispatch changes for smooth animations.
      */
     fun updateData(newTransactions: MutableList<Transaction>) {
         val diffCallback = TransactionDiffCallback(transactions, newTransactions)
@@ -50,9 +110,6 @@ class TransactionAdapter(
     }
 }
 
-/**
- * Helper class that defines how to compute the differences between two lists.
- */
 class TransactionDiffCallback(
     private val oldList: List<Transaction>,
     private val newList: List<Transaction>
@@ -62,12 +119,12 @@ class TransactionDiffCallback(
 
     override fun getNewListSize(): Int = newList.size
 
-    // Compares the unique IDs of each Transaction.
+    // Compare the unique IDs.
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
         return oldList[oldItemPosition].id == newList[newItemPosition].id
     }
 
-    // Compares the full content of Transactions.
+    // Compare the full content of the items.
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
         return oldList[oldItemPosition] == newList[newItemPosition]
     }

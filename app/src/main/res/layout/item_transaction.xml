@@ -4,31 +4,47 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    card_view:cardCornerRadius="8dp"
-    android:layout_marginBottom="8dp">
+    card_view:cardCornerRadius="12dp"
+    card_view:cardBackgroundColor="@color/white"
+    card_view:cardElevation="2dp"
+    android:layout_marginHorizontal="4dp"
+    android:layout_marginVertical="6dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="12dp"
+        android:padding="16dp"
         android:gravity="center_vertical">
 
-        <!-- Category Icon -->
-        <ImageView
-            android:id="@+id/ivCategoryIcon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/ic_category"
-            android:contentDescription="Category Icon"/>
+        <!-- Category Icon with background circle -->
+        <FrameLayout
+            android:layout_width="48dp"
+            android:layout_height="48dp">
+
+            <View
+                android:id="@+id/iconBackground"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@drawable/circle_icon_background" />
+
+            <TextView
+                android:id="@+id/tvCategoryIcon"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:text="🍔"
+                android:textSize="24sp"
+                android:gravity="center"
+                android:contentDescription="Category Emoji" />
+        </FrameLayout>
 
         <!-- Details Column -->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:orientation="vertical"
-            android:layout_weight="1">
+            android:layout_marginStart="12dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/tvTitle"
@@ -36,7 +52,8 @@
                 android:layout_height="wrap_content"
                 android:text="Transaction Title"
                 android:textSize="16sp"
-                android:textStyle="bold"/>
+                android:textColor="@color/primary_dark"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvDate"
@@ -44,7 +61,18 @@
                 android:layout_height="wrap_content"
                 android:text="Date"
                 android:textSize="14sp"
-                android:textColor="@android:color/darker_gray"/>
+                android:textColor="@color/medium_gray"
+                android:layout_marginTop="2dp" />
+
+            <!-- Transaction Summary TextView -->
+            <TextView
+                android:id="@+id/tvTransactionSummary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Summary goes here"
+                android:textSize="14sp"
+                android:textColor="@color/primary_dark"
+                android:visibility="gone" />
         </LinearLayout>
 
         <!-- Amount -->
@@ -52,17 +80,20 @@
             android:id="@+id/tvAmount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="$0"
-            android:textSize="16sp"
-            android:textStyle="bold"/>
+            android:text="LKR0"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginEnd="8dp" />
 
-        <!-- Delete Button -->
+        <!-- Delete Button with ripple effect -->
         <ImageButton
             android:id="@+id/ibDelete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:src="@drawable/ic_delete"
-            android:background="@android:color/transparent"
-            android:contentDescription="Delete Transaction"/>
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="8dp"
+            android:contentDescription="Delete Transaction"
+            card_view:tint="@color/expense_red" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

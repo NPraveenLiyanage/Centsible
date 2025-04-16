@@ -21,22 +21,46 @@ class TransactionDetailBottomSheet : BottomSheetDialogFragment() {
 
     private var selectedCategory: CategoryItem? = null
     private var isIncomeSelected: Boolean = false
+    private var isEdit: Boolean = false
+    private var transactionId: String? = null
+
     private var transactionList: MutableList<Transaction> = mutableListOf()
     private lateinit var sharedPref: android.content.SharedPreferences
     private val transactionsKey = "transactions"
     private val gson = Gson()
 
-    // Listener to notify the activity when a new transaction is saved.
+    // Listener to notify that a transaction is saved.
     var onTransactionSaved: (() -> Unit)? = null
 
     companion object {
+        private const val ARG_TRANSACTION_ID = "arg_transaction_id"
         private const val ARG_CATEGORY = "arg_category"
         private const val ARG_IS_INCOME = "arg_is_income"
+        private const val ARG_IS_EDIT = "arg_is_edit"
+        private const val ARG_TITLE = "arg_title"
+        private const val ARG_AMOUNT = "arg_amount"
+        private const val ARG_DATE = "arg_date"
 
+        // For new transactions.
         fun newInstance(category: CategoryItem, isIncome: Boolean): TransactionDetailBottomSheet {
             val args = Bundle().apply {
-                putString(ARG_CATEGORY, category.name) // we send just the name; emoji is for display
+                putString(ARG_CATEGORY, category.name) // Only sending the name; emoji is for display
                 putBoolean(ARG_IS_INCOME, isIncome)
+                putBoolean(ARG_IS_EDIT, false)
+            }
+            return TransactionDetailBottomSheet().apply { arguments = args }
+        }
+
+        // For editing an existing transaction.
+        fun newInstanceEdit(transaction: Transaction, isIncome: Boolean): TransactionDetailBottomSheet {
+            val args = Bundle().apply {
+                putString(ARG_TRANSACTION_ID, transaction.id)
+                putString(ARG_CATEGORY, transaction.category)
+                putString(ARG_TITLE, transaction.title)
+                putDouble(ARG_AMOUNT, transaction.amount)
+                putString(ARG_DATE, transaction.date)
+                putBoolean(ARG_IS_INCOME, isIncome)
+                putBoolean(ARG_IS_EDIT, true)
             }
             return TransactionDetailBottomSheet().apply { arguments = args }
         }
@@ -65,11 +89,26 @@ class TransactionDetailBottomSheet : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         // Retrieve passed parameters.
-        val categoryName = arguments?.getString(ARG_CATEGORY, "Category")
         isIncomeSelected = arguments?.getBoolean(ARG_IS_INCOME) ?: false
-        selectedCategory = CategoryItem(categoryName ?: "Category", "") // Emoji can be looked up if needed.
+        isEdit = arguments?.getBoolean(ARG_IS_EDIT, false) ?: false
 
-        binding.tvSelectedCategoryBS.text = categoryName
+        if (isEdit) {
+            // Edit mode: prepopulate fields.
+            transactionId = arguments?.getString(ARG_TRANSACTION_ID)
+            binding.etTitleBS.setText(arguments?.getString(ARG_TITLE, ""))
+            binding.etAmountBS.setText(arguments?.getDouble(ARG_AMOUNT, 0.0).toString())
+            binding.etDateBS.setText(arguments?.getString(ARG_DATE, ""))
+            val categoryName = arguments?.getString(ARG_CATEGORY, "Category")
+            binding.tvSelectedCategoryBS.text = categoryName
+            selectedCategory = CategoryItem(categoryName ?: "Category", "")
+            // Update button text to indicate editing.
+            binding.btnSaveBS.text = "Update Transaction"
+        } else {
+            // New transaction mode.
+            val categoryName = arguments?.getString(ARG_CATEGORY, "Category")
+            binding.tvSelectedCategoryBS.text = categoryName
+            selectedCategory = CategoryItem(categoryName ?: "Category", "")
+        }
 
         // Setup date field.
         binding.etDateBS.inputType = InputType.TYPE_NULL
@@ -119,22 +158,44 @@ class TransactionDetailBottomSheet : BottomSheetDialogFragment() {
             return
         }
 
-        // Create and add the new transaction.
-        val newTransaction = Transaction(
-            UUID.randomUUID().toString(),
-            title,
-            amount,
-            selectedCategory?.name ?: "Category",
-            date,
-            isIncomeSelected
-        )
-        transactionList.add(newTransaction)
-        // Save to SharedPreferences.
+        if (isEdit) {
+            // Edit mode: update existing transaction.
+            val id = transactionId ?: UUID.randomUUID().toString()
+            val updatedTransaction = Transaction(
+                id = id,
+                title = title,
+                amount = amount,
+                category = selectedCategory?.name ?: "Category",
+                date = date,
+                isIncome = isIncomeSelected
+            )
+            val index = transactionList.indexOfFirst { it.id == id }
+            if (index != -1) {
+                transactionList[index] = updatedTransaction
+            } else {
+                transactionList.add(updatedTransaction)
+            }
+            Toast.makeText(requireContext(), "Transaction updated", Toast.LENGTH_SHORT).show()
+        } else {
+            // New transaction: add it.
+            val newTransaction = Transaction(
+                id = UUID.randomUUID().toString(),
+                title = title,
+                amount = amount,
+                category = selectedCategory?.name ?: "Category",
+                date = date,
+                isIncome = isIncomeSelected
+            )
+            transactionList.add(newTransaction)
+            Toast.makeText(requireContext(), "Transaction saved", Toast.LENGTH_SHORT).show()
+        }
+
+        // Save the updated list into SharedPreferences.
         val editor = sharedPref.edit()
         editor.putString(transactionsKey, gson.toJson(transactionList))
         editor.apply()
 
-        Toast.makeText(requireContext(), "Transaction saved", Toast.LENGTH_SHORT).show()
+        // Invoke callback to refresh data without closing the host activity.
         onTransactionSaved?.invoke()
         dismiss()
     }

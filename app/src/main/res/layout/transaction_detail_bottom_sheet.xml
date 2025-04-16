@@ -1,54 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/bottomSheetLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="24dp"
+    android:background="@drawable/bottom_sheet_background">
 
-    <!-- Display Selected Category -->
+    <!-- Bottom Sheet Handle -->
+    <View
+        android:layout_width="40dp"
+        android:layout_height="4dp"
+        android:background="@color/medium_gray"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Bottom Sheet Title -->
     <TextView
-        android:id="@+id/tvSelectedCategoryBS"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Selected Category"
-        android:textSize="18sp"
+        android:text="Edit Transaction"
+        android:textSize="20sp"
         android:textStyle="bold"
-        android:padding="8dp"/>
+        android:textColor="@color/primary_dark"
+        android:layout_marginBottom="16dp" />
 
-    <!-- Transaction Title -->
-    <EditText
-        android:id="@+id/etTitleBS"
+    <!-- Display selected category with icon -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="12dp"
+        android:background="@drawable/selected_category_background"
+        android:layout_marginBottom="16dp">
+
+        <TextView
+            android:id="@+id/tvSelectedCategoryIconBS"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:text="🏷️"
+            android:textSize="24sp"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/tvSelectedCategoryBS"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Selected Category"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/primary_dark"
+            android:layout_marginStart="12dp" />
+    </LinearLayout>
+
+    <!-- Material TextInputLayout for Transaction Title -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
         android:hint="Transaction Title"
-        android:layout_marginTop="8dp"/>
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:boxStrokeColor="@color/secondary"
+        app:hintTextColor="@color/dark_gray">
 
-    <!-- Amount -->
-    <EditText
-        android:id="@+id/etAmountBS"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etTitleBS"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Material TextInputLayout for Amount -->
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
         android:hint="Amount"
-        android:inputType="numberDecimal"
-        android:layout_marginTop="8dp"/>
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:boxStrokeColor="@color/secondary"
+        app:startIconDrawable="@drawable/ic_money"
+        app:startIconTint="@color/secondary"
+        app:hintTextColor="@color/dark_gray">
 
-    <!-- Date Field -->
-    <EditText
-        android:id="@+id/etDateBS"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etAmountBS"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:textColor="@color/black" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Material TextInputLayout for Date -->
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Date (YYYY-MM-DD)"
-        android:clickable="true"
-        android:focusable="false"
-        android:layout_marginTop="8dp"/>
+        android:layout_marginBottom="24dp"
+        android:hint="Date"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:boxStrokeColor="@color/secondary"
+        app:startIconDrawable="@drawable/ic_calendar"
+        app:startIconTint="@color/secondary"
+        app:hintTextColor="@color/dark_gray">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etDateBS"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="false"
+            android:textColor="@color/black" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Save Button -->
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnSaveBS"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Save Transaction"
-        android:layout_marginTop="16dp"/>
+        android:text="Save Changes"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/accent"
+        android:paddingVertical="12dp"
+        app:cornerRadius="8dp"
+        app:rippleColor="@color/white"
+        android:elevation="2dp" />
 </LinearLayout>

@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/scrollView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:padding="16dp"
+    android:background="@color/primary_light">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Header Text -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add Transaction"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/primary_dark"
+            android:layout_marginBottom="16dp" />
+
+        <!-- TabLayout for Expense and Income -->
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:background="@color/light_gray"
+            app:tabIndicatorColor="@color/secondary"
+            app:tabIndicatorHeight="0dp"
+            app:tabSelectedTextColor="@color/white"
+            app:tabTextColor="@color/dark_gray"
+            app:tabMode="fixed"
+            app:tabGravity="fill"
+            app:tabRippleColor="@android:color/transparent"
+            app:tabBackground="@drawable/tab_selector_background"
+            app:tabPaddingStart="4dp"
+            app:tabPaddingEnd="4dp"
+            app:tabPaddingTop="12dp"
+            app:tabPaddingBottom="12dp"
+            app:tabTextAppearance="@style/TabTextAppearance" />
+
+        <!-- Category Title -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Select Category"
+            android:textSize="16sp"
+            android:textColor="@color/secondary_dark"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp" />
+
+        <!-- RecyclerView for category grid -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvCategories"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="16dp"
+            android:clipToPadding="false"
+            android:paddingBottom="8dp"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="4" />
+
+        <!-- Divider -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/secondary_light"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Form Layout (hidden until a category is selected) -->
+        <LinearLayout
+            android:id="@+id/formLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <!-- Display selected category with icon -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="8dp"
+                android:background="@drawable/selected_category_background">
+
+                <TextView
+                    android:id="@+id/tvCategoryIcon"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:text="🏷️"
+                    android:textSize="24sp"
+                    android:gravity="center" />
+
+                <TextView
+                    android:id="@+id/tvSelectedCategory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Selected Category"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/primary_dark"
+                    android:layout_marginStart="12dp" />
+            </LinearLayout>
+
+            <!-- Transaction Title -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="Transaction Title"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:boxStrokeColor="@color/secondary">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Amount -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="Amount"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:boxStrokeColor="@color/secondary"
+                app:startIconDrawable="@drawable/ic_money"
+                app:startIconTint="@color/secondary">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etAmount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Date -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:hint="Date"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:boxStrokeColor="@color/secondary"
+                app:startIconDrawable="@drawable/ic_calendar"
+                app:startIconTint="@color/secondary">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="false" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Save Button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSave"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Save Transaction"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/accent"
+                android:layout_marginTop="24dp"
+                android:paddingVertical="12dp"
+                app:cornerRadius="8dp"
+                app:rippleColor="@color/white"
+                android:elevation="2dp" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

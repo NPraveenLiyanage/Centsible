@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Selected state: a vertical gradient from gradient_start to gradient_end -->
+    <item android:state_selected="true">
+        <shape android:shape="rectangle">
+            <gradient
+                android:startColor="@color/gradient_start"
+                android:endColor="@color/gradient_end"
+                android:angle="90" />
+            <corners android:radius="16dp" />
+        </shape>
+    </item>
+
+    <!-- Pressed state: a solid, subtle light blue using secondary_light -->
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/secondary_light" />
+            <corners android:radius="16dp" />
+        </shape>
+    </item>
+
+    <!-- Default state: transparent background -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/transparent" />
+            <corners android:radius="16dp" />
+        </shape>
+    </item>
+
+</selector>

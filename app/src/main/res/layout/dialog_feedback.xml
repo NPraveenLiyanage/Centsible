@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="@drawable/rounded_dialog_background">
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/tvFeedbackTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="We Value Your Feedback"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/primary_dark"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Feedback Input Field inside a Material TextInputLayout -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayoutFeedback"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter your feedback"
+        app:boxStrokeColor="@color/secondary"
+        app:boxCornerRadiusTopStart="12dp"
+        app:boxCornerRadiusTopEnd="12dp"
+        app:boxCornerRadiusBottomStart="12dp"
+        app:boxCornerRadiusBottomEnd="12dp"
+        app:hintTextColor="@color/dark_gray">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etFeedback"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:minLines="3"
+            android:maxLines="5"
+            android:textColor="@color/primary_dark" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Custom Button Container -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end"
+        android:layout_marginTop="24dp">
+
+        <!-- Cancel Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnCancelFeedback"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancel"
+            android:textColor="@color/secondary_dark" />
+
+        <!-- Send Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSendFeedback"
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Send"
+            android:layout_marginStart="16dp" />
+    </LinearLayout>
+</LinearLayout>
