@@ -67,14 +67,17 @@ class CategoryAnalysisAdapter(
         val category = categories[position]
         holder.binding.tvCategory.text = category
         val total = categoryTotals[category] ?: 0.0
-        holder.binding.tvTotal.text = "Total: LKR${String.format("%.2f", total)}"
 
-        // Look up and set the emoji for the category.
-        // Ensure your layout contains a TextView with the id tvCategoryAnalysisIcon.
+        // Use the CurrencyManager to obtain the current currency symbol.
+        val currencySymbol = com.example.centsible.CurrencyManager.getCurrencySymbol(holder.binding.root.context)
+
+        holder.binding.tvTotal.text = "Total: $currencySymbol${String.format("%.2f", total)}"
+
+        // Set the emoji for the category.
         val emoji = categoryEmojis[category] ?: "❓"
         holder.binding.tvCategoryAnalysisIcon.text = emoji
 
-        // Set the item clickable.
+        // Invoke the click listener if provided.
         holder.binding.root.setOnClickListener {
             onCategoryClick?.invoke(category)
         }

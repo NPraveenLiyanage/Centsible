@@ -4,17 +4,13 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.text.InputType
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.PeriodicWorkRequestBuilder
@@ -32,6 +28,7 @@ class BackupRestoreFragment : Fragment() {
     private var _binding: FragmentBackupRestoreBinding? = null
     private val binding get() = _binding!!
 
+    // SharedPreferences used for settings and data.
     private val sharedPref by lazy {
         requireContext().getSharedPreferences("PersonalFinancePrefs", Context.MODE_PRIVATE)
     }
@@ -39,9 +36,10 @@ class BackupRestoreFragment : Fragment() {
     private val backupFileName = "transaction_backup.json"
     private val gson = Gson()
 
-    // Keys for the new settings
+    // Keys for various settings.
     private val KEY_BUDGET_ALERT = "budget_alert_enabled"
     private val KEY_DAILY_REMINDER = "daily_reminder_enabled"
+    private val currencyKey = "selected_currency"
 
     companion object {
         fun newInstance() = BackupRestoreFragment()
@@ -57,7 +55,7 @@ class BackupRestoreFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Initialize backup and restore buttons.
+        // Initialize Backup and Restore buttons.
         binding.btnBackup.setOnClickListener { backupData() }
         binding.btnRestore.setOnClickListener { restoreData() }
 
@@ -81,8 +79,6 @@ class BackupRestoreFragment : Fragment() {
                 "Daily Reminder notifications ${if (isChecked) "enabled" else "disabled"}",
                 Toast.LENGTH_SHORT
             ).show()
-
-            // Schedule or cancel the daily reminder using DailyReminderWorker.
             if (isChecked) {
                 scheduleDailyReminder()
             } else {
@@ -92,23 +88,46 @@ class BackupRestoreFragment : Fragment() {
 
         // Initialize Logout button.
         binding.btnLogout.setOnClickListener {
-            // Clear the current user.
             sharedPref.edit().remove("current_user").apply()
             Toast.makeText(requireContext(), "Logged out", Toast.LENGTH_SHORT).show()
-            // Navigate to LoginActivity.
             startActivity(Intent(requireContext(), LoginActivity::class.java))
-            // Finish the current activity to prevent the user from returning via back press.
             requireActivity().finish()
         }
 
         // Initialize Feedback button.
         binding.btnFeedback.setOnClickListener { showFeedbackDialog() }
+
+        // Initialize the Currency Spinner.
+        setupCurrencySpinner()
+    }
+
+    private fun setupCurrencySpinner() {
+        // List of available currencies with symbols.
+        val currencies = listOf("LKR (Rs)","USD ($)", "EUR (€)", "GBP (£)", "INR (₹)", "JPY (¥)")
+        val adapter = ArrayAdapter(requireContext(), R.layout.simple_spinner, currencies)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        binding.spinnerCurrency.adapter = adapter
+
+        // Retrieve previously saved currency; default to "USD ($)".
+        val savedCurrency = sharedPref.getString(currencyKey, "LKR (Rs)")
+        val position = currencies.indexOf(savedCurrency)
+        if (position >= 0) {
+            binding.spinnerCurrency.setSelection(position)
+        }
+
+        binding.spinnerCurrency.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View, pos: Int, id: Long) {
+                val selected = currencies[pos]
+                sharedPref.edit().putString(currencyKey, selected).apply()
+                // Optionally, trigger a UI refresh in fragments/adapters using currency.
+            }
+            override fun onNothingSelected(parent: AdapterView<*>) {}
+        }
     }
 
     private fun scheduleDailyReminder() {
         val dailyWorkRequest = PeriodicWorkRequestBuilder<DailyReminderWorker>(24, TimeUnit.HOURS)
             .build()
-
         WorkManager.getInstance(requireContext()).enqueueUniquePeriodicWork(
             "DailyExpenseReminder",
             ExistingPeriodicWorkPolicy.REPLACE,
@@ -158,22 +177,16 @@ class BackupRestoreFragment : Fragment() {
             .show()
     }
 
-    // Shows a feedback dialog that collects user feedback and sends it via an email intent.
+    // Shows a custom feedback dialog (using a custom layout in dialog_feedback.xml).
     private fun showFeedbackDialog() {
-        // Inflate the custom layout
         val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_feedback, null)
-        // Find views in the custom layout
         val etFeedback = dialogView.findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.etFeedback)
         val btnSend = dialogView.findViewById<com.google.android.material.button.MaterialButton>(R.id.btnSendFeedback)
         val btnCancel = dialogView.findViewById<com.google.android.material.button.MaterialButton>(R.id.btnCancelFeedback)
-
-        // Create the dialog without using builder.setPositiveButton / setNegativeButton,
-        // so we can use our own buttons.
         val dialog = AlertDialog.Builder(requireContext())
             .setView(dialogView)
             .create()
 
-        // Set click listener for Send button
         btnSend.setOnClickListener {
             val feedbackText = etFeedback.text.toString().trim()
             if (feedbackText.isNotEmpty()) {
@@ -193,11 +206,9 @@ class BackupRestoreFragment : Fragment() {
             }
         }
 
-        // Set click listener for Cancel button
         btnCancel.setOnClickListener {
             dialog.dismiss()
         }
-
         dialog.show()
     }
 

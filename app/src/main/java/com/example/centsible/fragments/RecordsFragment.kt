@@ -3,11 +3,9 @@ package com.example.centsible.fragments
 import android.Manifest
 import android.app.Dialog
 import android.content.Context
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
-import android.text.InputType
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -25,9 +23,6 @@ import com.example.centsible.adapters.TransactionAdapter
 import com.example.centsible.databinding.FragmentRecordsBinding
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-
-// Make sure to import your custom budget update fragment:
-import com.example.centsible.fragments.BudgetUpdateFragment
 
 class RecordsFragment : Fragment() {
 
@@ -204,8 +199,17 @@ class RecordsFragment : Fragment() {
         }
     }
 
+    // Helper function to extract the currency symbol from the stored currency string.
+    private fun getCurrencySymbol(): String {
+        val savedCurrency = sharedPref.getString("selected_currency", "LKR (Rs)") ?: "LKR (Rs)"
+        val regex = "\\((.*?)\\)".toRegex()
+        val matchResult = regex.find(savedCurrency)
+        return matchResult?.groups?.get(1)?.value ?: "Rs"
+    }
+
     private fun updateBudgetSummary() {
-        binding.tvMonthlyBudget.text = "Monthly Budget: LKR$monthlyBudget"
+        val currencySymbol = getCurrencySymbol()
+        binding.tvMonthlyBudget.text = "Monthly Budget: $currencySymbol$monthlyBudget"
         val totalExpense = transactionList.filter { !it.isIncome }.sumOf { it.amount }
         if (monthlyBudget > 0) {
             val status = when {
@@ -218,12 +222,12 @@ class RecordsFragment : Fragment() {
             if (status != "Within Budget" && budgetAlertsEnabled) {
                 Toast.makeText(
                     requireContext(),
-                    "Budget Alert: You have $status. Total expenses: $$totalExpense",
+                    "Budget Alert: You have $status. Total expenses: $currencySymbol${String.format("%.2f", totalExpense)}",
                     Toast.LENGTH_LONG
                 ).show()
                 NotificationHelper(requireContext()).sendBudgetAlertNotification(
                     "Budget Alert",
-                    "You have $status. Total expenses: $$totalExpense"
+                    "You have $status. Total expenses: $currencySymbol${String.format("%.2f", totalExpense)}"
                 )
             }
         } else {
@@ -235,10 +239,11 @@ class RecordsFragment : Fragment() {
         val totalIncome = transactionList.filter { it.isIncome }.sumOf { it.amount }
         val totalExpense = transactionList.filter { !it.isIncome }.sumOf { it.amount }
         val netBalance = totalIncome - totalExpense
+        val currencySymbol = getCurrencySymbol()
         binding.tvTransactionSummary.text = """
-                    💰 Income:   LKR${String.format("%.2f", totalIncome)}
-                    💸 Expenses: LKR${String.format("%.2f", totalExpense)}
-                    ⚖️ Balance:  LKR${String.format("%.2f", netBalance)}
+                    💰 Income:   $currencySymbol${String.format("%.2f", totalIncome)}
+                    💸 Expenses: $currencySymbol${String.format("%.2f", totalExpense)}
+                    ⚖️ Balance:  $currencySymbol${String.format("%.2f", netBalance)}
                 """.trimIndent()
     }
 

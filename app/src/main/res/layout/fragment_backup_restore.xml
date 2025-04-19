@@ -5,7 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    android:clipToPadding="false"
+    android:paddingTop="14dp"
+    android:paddingBottom="24dp"
+    android:singleLine="true"
+    android:layout_marginTop="24dp"
     android:background="@color/primary_light">
 
     <LinearLayout
@@ -14,6 +17,7 @@
         android:orientation="vertical"
         android:padding="24dp">
 
+        <!-- Title -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -128,6 +132,43 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
+        <!-- Currency Selection Card -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardCurrency"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="5dp"
+            android:clipToPadding="false"
+            android:layout_marginBottom="24dp"
+            app:cardBackgroundColor="@color/white"
+            app:cardUseCompatPadding="true"
+            app:cardPreventCornerOverlap="false">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Currency"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/primary_dark"
+                    android:layout_marginBottom="16dp"/>
+
+                <Spinner
+                    android:id="@+id/spinnerCurrency"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_spinner_background"
+                    android:padding="12dp"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
         <!-- Backup & Restore Card -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -192,18 +233,6 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- Logout Button -->
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnLogout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Logout"
-            android:textColor="@color/white"
-            android:backgroundTint="@color/secondary"
-            android:paddingVertical="12dp"
-            app:cornerRadius="8dp"
-            android:layout_marginTop="24dp"/>
-
         <!-- Feedback Button -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnFeedback"
@@ -215,5 +244,18 @@
             android:paddingVertical="12dp"
             app:cornerRadius="8dp"
             android:layout_marginTop="16dp"/>
+
+
+        <!-- Logout Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnLogout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Logout"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/secondary"
+            android:paddingVertical="12dp"
+            app:cornerRadius="8dp"
+            android:layout_marginTop="24dp"/>
     </LinearLayout>
 </ScrollView>

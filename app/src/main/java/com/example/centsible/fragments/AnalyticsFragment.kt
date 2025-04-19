@@ -248,16 +248,6 @@ class AnalyticsFragment : Fragment() {
         dialog.show()
     }
 
-// Add this to your styles.xml file
-// <style name="DialogAnimation">
-//     <item name="android:windowEnterAnimation">@anim/slide_up</item>
-//     <item name="android:windowExitAnimation">@anim/slide_down</item>
-// </style>
-
-    /**
-     * Shows two DatePickerDialogs sequentially to select a custom start and end date.
-     * Once both dates are set, re-trigger the analytics update.
-     */
     private fun showCustomDateRangeDialog() {
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         val startCal = Calendar.getInstance()

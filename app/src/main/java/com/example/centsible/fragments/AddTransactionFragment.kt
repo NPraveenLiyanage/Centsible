@@ -42,7 +42,6 @@ class AddTransactionFragment : Fragment() {
         CategoryItem("Travel", "✈️"),
         CategoryItem("Utilities", "💡"),
         CategoryItem("Education", "🎓"),
-        // Additional expense categories:
         CategoryItem("Phone", "📱"),
         CategoryItem("Beauty", "💄"),
         CategoryItem("Sports", "⚽"),
@@ -73,7 +72,6 @@ class AddTransactionFragment : Fragment() {
         CategoryItem("Other Income", "🎁")
     )
 
-    // Flag indicating whether Income (true) or Expense (false) is selected.
     private var isIncomeSelected: Boolean = false
 
     companion object {

@@ -65,7 +65,10 @@ class TransactionAdapter(
                 // Bind transaction details.
                 tvTitle.text = transaction.title
                 tvDate.text = transaction.date
-                tvAmount.text = if (transaction.isIncome) "+LKR${transaction.amount}" else "-LKR${transaction.amount}"
+                val currencySymbol = com.example.centsible.CurrencyManager.getCurrencySymbol(root.context)
+                tvAmount.text = if (transaction.isIncome)
+                                    "+$currencySymbol${transaction.amount}"
+                                else "-$currencySymbol${transaction.amount}"
                 // Optionally display the category summary.
                 tvTransactionSummary.text = transaction.category
                 tvTransactionSummary.visibility = if (transaction.category.isNotEmpty()) View.VISIBLE else View.GONE
