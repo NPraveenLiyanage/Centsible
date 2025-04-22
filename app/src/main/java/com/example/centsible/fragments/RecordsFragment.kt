@@ -119,39 +119,31 @@ class RecordsFragment : Fragment() {
     }
 
     private fun showSetBudgetDialog() {
-        // Create a Dialog using the custom bottom sheet style
         val dialog = Dialog(requireContext(), R.style.BottomSheetDialogTheme)
         dialog.setContentView(R.layout.fragment_budget_update)
 
-        // Make the dialog width match the screen width and height wrap content,
-        // and position it at the bottom of the screen.
         dialog.window?.apply {
             setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
             setGravity(Gravity.BOTTOM)
-            // Optionally, add window animations:
-            // attributes.windowAnimations = R.style.BottomSheetAnimation
         }
 
-        // Get shared preferences (same as you use elsewhere)
         val sharedPref = requireContext().getSharedPreferences("PersonalFinancePrefs", Context.MODE_PRIVATE)
 
-        // Pre-fill the budget EditText if a current budget exists
         val etBudget = dialog.findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.etBudget)
         val currentBudget = sharedPref.getFloat(budgetKey, 0.0f)
         if (currentBudget > 0f) {
             etBudget.setText(currentBudget.toString())
         }
 
-        // Set up the Save button in your custom layout
         val btnSaveBudget = dialog.findViewById<com.google.android.material.button.MaterialButton>(R.id.btnSaveBudget)
         btnSaveBudget.setOnClickListener {
             val budgetText = etBudget.text.toString()
             if (budgetText.isNotEmpty()) {
                 val newBudget = budgetText.toFloatOrNull() ?: 0f
                 sharedPref.edit().putFloat(budgetKey, newBudget).apply()
-                updateBudgetSummary()  // Update UI accordingly
+                updateBudgetSummary()
                 Toast.makeText(requireContext(), "Monthly budget updated", Toast.LENGTH_SHORT).show()
-                dialog.dismiss() // Close the bottom sheet
+                dialog.dismiss()
             } else {
                 Toast.makeText(requireContext(), "Please enter a valid budget", Toast.LENGTH_SHORT).show()
             }
@@ -217,7 +209,17 @@ class RecordsFragment : Fragment() {
                 totalExpense >= 0.9 * monthlyBudget -> "Near Budget Limit"
                 else -> "Within Budget"
             }
+
             binding.tvBudgetStatus.text = status
+
+            val statusColorResId = when (status) {
+                "Exceeded Budget!" -> R.color.status_danger
+                "Near Budget Limit" -> R.color.status_warning
+                "Within Budget" -> R.color.status_good
+                else -> R.color.white
+            }
+            binding.tvBudgetStatus.setTextColor(ContextCompat.getColor(requireContext(), statusColorResId))
+
             val budgetAlertsEnabled = sharedPref.getBoolean(KEY_BUDGET_ALERT, true)
             if (status != "Within Budget" && budgetAlertsEnabled) {
                 Toast.makeText(

@@ -1,5 +1,42 @@
 <resources>
     <string name="app_name">Centsible</string>
-    <!-- TODO: Remove or change this placeholder text -->
+<!--    activity_login-->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="welcome_back">Welcome Back</string>
+    <string name="sign_in_to_continue">Sign in to continue</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="login">Login</string>
+    <string name="don_t_have_an_account">Don\'t have an account?</string>
+    <string name="sign_up">Sign Up</string>
+
+<!--    activity_onboarding-->
+    <string name="swipe_to_continue">Swipe to continue</string>
+    <string name="get_started">Get Started</string>
+    <string name="back">Back</string>
+
+<!--    activity_signUp-->
+    <string name="logo">Logo</string>
+    <string name="create_account">Create Account</string>
+    <string name="sign_up_to_start_tracking_your_finances">Sign up to start tracking your finances</string>
+    <string name="full_name">Full Name</string>
+    <string name="emailSignUp">Email</string>
+    <string name="passwordSignUp">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="i_agree_to_the_terms_of_service_and_privacy_policy">I agree to the Terms of Service and Privacy Policy</string>
+    <string name="create_accountSignUp">Create Account</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="log_in">Log In</string>
+
+    <!--    dialog_feedback-->
+    <string name="we_value_your_feedback">We Value Your Feedback</string>
+    <string name="enter_your_feedback">Enter your feedback</string>
+    <string name="cancel">Cancel</string>
+    <string name="send">Send</string>
+
+    <!--    dialog_view_all_transaction-->
+    <string name="full_category_analysis">Full Category Analysis</string>
+    <string name="close">Close</string>
+
 </resources>

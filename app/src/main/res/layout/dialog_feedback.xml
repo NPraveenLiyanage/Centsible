@@ -13,7 +13,7 @@
         android:id="@+id/tvFeedbackTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="We Value Your Feedback"
+        android:text="@string/we_value_your_feedback"
         android:textSize="20sp"
         android:textStyle="bold"
         android:textColor="@color/primary_dark"
@@ -25,7 +25,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter your feedback"
+        android:hint="@string/enter_your_feedback"
         app:boxStrokeColor="@color/secondary"
         app:boxCornerRadiusTopStart="12dp"
         app:boxCornerRadiusTopEnd="12dp"
@@ -57,7 +57,7 @@
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cancel"
+            android:text="@string/cancel"
             android:textColor="@color/secondary_dark" />
 
         <!-- Send Button -->
@@ -66,7 +66,7 @@
             style="@style/Widget.MaterialComponents.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Send"
+            android:text="@string/send"
             android:layout_marginStart="16dp" />
     </LinearLayout>
 </LinearLayout>

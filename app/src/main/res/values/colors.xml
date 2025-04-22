@@ -1,45 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Modern Primary Colors (60%) -->
-    <color name="primary_dark">#1E293B</color>    <!-- Deep slate blue -->
-    <color name="primary_light">#F8FAFC</color>   <!-- Ultra light background -->
+    <!-- Modern Primary Colors  -->
+    <color name="primary_dark">#1E293B</color>
+    <color name="primary_light">#F8FAFC</color>
 
-    <!-- Modern Secondary Colors (30%) -->
-    <color name="secondary">#3B82F6</color>       <!-- Vibrant blue -->
+    <!-- Modern Secondary Colors -->
+    <color name="secondary">#3B82F6</color>       <!-- secondary color -->
     <color name="secondary_light">#DBEAFE</color> <!-- Light blue for subtle backgrounds -->
     <color name="secondary_dark">#2563EB</color>  <!-- Darker blue for active states -->
 
-    <!-- Modern Accent Colors (10%) -->
-    <color name="accent">#10B981</color>          <!-- Vibrant green -->
+    <!-- Modern Accent Colors -->
+    <color name="accent">#10B981</color>          <!-- accent color-->
     <color name="expense_red">#EF4444</color>     <!-- Bright red for expenses -->
     <color name="income_green">#10B981</color>    <!-- Bright green for income -->
 
     <!-- Gradient Colors -->
-    <color name="gradient_start">#1E293B</color>  <!-- Start gradient color -->
-    <color name="gradient_end">#3B82F6</color>    <!-- End gradient color -->
+    <color name="gradient_start">#F30D2287</color>
+    <color name="gradient_end">#3B82F6</color>
 
     <!-- Neutral Colors -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="light_gray">#F1F5F9</color>      <!-- For card backgrounds -->
-    <color name="medium_gray">#94A3B8</color>     <!-- For inactive icons -->
-    <color name="dark_gray">#334155</color>       <!-- For secondary text -->
-    <color name="background_gray">#F8FAFC</color> <!-- For app backgrounds -->
+    <color name="light_gray">#F1F5F9</color>
+    <color name="medium_gray">#94A3B8</color>
+    <color name="dark_gray">#334155</color>
+    <color name="background_gray">#F8FAFC</color>
 
-    <!-- System Colors -->
-    <color name="teal_200">#03DAC5</color>
-
-    <!-- Status Colors -->
-    <color name="status_good">#10B981</color>     <!-- Good budget status -->
-    <color name="status_warning">#F59E0B</color>  <!-- Warning budget status -->
-    <color name="status_danger">#EF4444</color>   <!-- Danger budget status -->
+    <!-- Budget Status Colors -->
+    <color name="status_good">#10B981</color>
+    <color name="status_warning">#F59E0B</color>
+    <color name="status_danger">#EF4444</color>
 
     <!-- Bottom Navigation Colors -->
-    <color name="bottom_nav_bg">#1E293B</color>   <!-- Bottom navigation background -->
-    <color name="nav_active">#FFFFFF</color>      <!-- Active item color -->
-    <color name="nav_inactive">#94A3B8</color>    <!-- Inactive item color -->
+    <color name="bottom_nav_bg">#1E293B</color>
+    <color name="nav_active">#FFFFFF</color>
+    <color name="nav_inactive">#94A3B8</color>
 
     <!-- Card Colors -->
-    <color name="card_background">#FFFFFF</color> <!-- Card background -->
-    <color name="card_shadow">#E2E8F0</color>     <!-- Card shadow -->
+    <color name="card_background">#FFFFFF</color>
+    <color name="card_shadow">#E2E8F0</color>
 </resources>

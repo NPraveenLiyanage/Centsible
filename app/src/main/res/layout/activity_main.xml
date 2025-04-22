@@ -7,23 +7,25 @@
     android:layout_marginTop="24dp"
     android:background="@color/primary_light">
 
-    <!-- Fragment container where fragments are swapped -->
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="56dp" />
 
-    <!-- Bottom Navigation View always visible at the bottom -->
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigation"
+        style="@style/CustomBottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        app:menu="@menu/bottom_navigation_menu"
-        app:itemIconTint="@color/white"
-        app:itemTextColor="@color/white"
+        android:background="@drawable/bottom_navigation_background"
         app:backgroundTint="@color/primary_dark"
-        android:background="@drawable/bottom_navigation_background"/>
+        app:itemHorizontalTranslationEnabled="true"
+        app:itemIconTint="@color/bottom_nav_icon_color_selector"
+        app:itemTextColor="@color/bottom_nav_icon_color_selector"
+        app:labelVisibilityMode="selected"
+        app:menu="@menu/bottom_navigation_menu" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

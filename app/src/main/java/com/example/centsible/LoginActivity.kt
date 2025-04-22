@@ -1,18 +1,10 @@
 package com.example.centsible
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-
-
-
 import android.content.Context
 import android.content.Intent
-
 import android.widget.Toast
-
 import com.example.centsible.databinding.ActivityLoginBinding
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken

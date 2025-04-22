@@ -40,7 +40,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Swipe to continue"
+            android:text="@string/swipe_to_continue"
             android:textColor="@color/white"
             android:textSize="14sp"
             android:layout_marginStart="8dp"/>
@@ -75,7 +75,7 @@
         android:id="@+id/btnGetStarted"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Get Started"
+        android:text="@string/get_started"
         android:textColor="@color/white"
         android:textSize="16sp"
         android:textStyle="bold"

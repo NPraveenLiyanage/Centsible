@@ -109,10 +109,6 @@ class AnalyticsFragment : Fragment() {
         }
     }
 
-    /**
-     * Returns transactions filtered by the time period selected in the ChipGroup.
-     * Assumes transaction.date is in "yyyy-MM-dd" format.
-     */
     private fun getFilteredTransactions(transactions: List<Transaction>): List<Transaction> {
         val selectedChipId = binding.chipGroupPeriod.checkedChipId
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
@@ -181,8 +177,8 @@ class AnalyticsFragment : Fragment() {
         dataSet.sliceSpace = 3f
         dataSet.selectionShift = 5f
         dataSet.colors = ColorTemplate.MATERIAL_COLORS.toList()
+        dataSet.setDrawValues(false)
         val pieData = PieData(dataSet)
-        pieData.setValueTextSize(8f)
         pieData.setValueTextColor(Color.BLACK)
         with(binding.pieChart) {
             data = pieData
@@ -193,13 +189,11 @@ class AnalyticsFragment : Fragment() {
             animateY(1000)
             setEntryLabelColor(Color.BLACK)
             setEntryLabelTextSize(8f)
+            setDrawEntryLabels(false)
             invalidate()
         }
     }
 
-    /**
-     * Shows a dialog with a full list of category analysis, using a RecyclerView.
-     */
     private fun showViewAllDialog() {
         // Recompute category totals from filtered transactions.
         val filteredTransactions = getFilteredTransactions(transactionList)

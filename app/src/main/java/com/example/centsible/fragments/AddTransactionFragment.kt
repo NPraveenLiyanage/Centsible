@@ -31,7 +31,7 @@ class AddTransactionFragment : Fragment() {
     private val gson = Gson()
     private var transactionList: MutableList<Transaction> = mutableListOf()
 
-    // Combined Expense Categories
+    // Expense Categories
     private val expenseCategories = listOf(
         CategoryItem("Food", "🍔"),
         CategoryItem("Transport", "🚞"),
@@ -90,7 +90,6 @@ class AddTransactionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Check if this fragment is launched in "edit" mode.
         val isEditMode = requireActivity().intent.getBooleanExtra("edit", false)
         if (isEditMode) {
             loadTransactions()
@@ -104,7 +103,7 @@ class AddTransactionFragment : Fragment() {
                     Toast.makeText(requireContext(), "Transaction updated", Toast.LENGTH_SHORT).show()
                 }
                 bottomSheet.show(parentFragmentManager, "TransactionDetailBottomSheet")
-                return  // Skip the category selection UI.
+                return
             } else {
                 Toast.makeText(requireContext(), "Transaction not found", Toast.LENGTH_SHORT).show()
                 requireActivity().finish()
@@ -112,10 +111,9 @@ class AddTransactionFragment : Fragment() {
             }
         }
 
-        // Normal "add new transaction" flow.
         binding.formLayout.visibility = View.GONE
 
-        // Configure TabLayout with two tabs: Expense and Income.
+        // Configure TabLayout
         binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Expense"))
         binding.tabLayout.addTab(binding.tabLayout.newTab().setText("Income"))
 
@@ -124,7 +122,6 @@ class AddTransactionFragment : Fragment() {
         loadCategories(expenseCategories)
         isIncomeSelected = false
 
-        // Listen for tab changes.
         binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 tab?.let {
@@ -148,7 +145,6 @@ class AddTransactionFragment : Fragment() {
     // Load category list into the RecyclerView.
     private fun loadCategories(categories: List<CategoryItem>) {
         val adapter = CategoryAdapter(categories) { category ->
-            // When a category is selected, launch the Bottom Sheet dialog.
             val bottomSheet = TransactionDetailBottomSheet.newInstance(category, isIncomeSelected)
             bottomSheet.onTransactionSaved = {
                 Toast.makeText(requireContext(), "Transaction saved", Toast.LENGTH_SHORT).show()
@@ -165,7 +161,6 @@ class AddTransactionFragment : Fragment() {
     ) : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
 
         inner class CategoryViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
-            // Get the TextView from the inflated item layout.
             val tvCategory: TextView = view.findViewById(R.id.tvCategoryItem)
         }
 
@@ -179,9 +174,7 @@ class AddTransactionFragment : Fragment() {
 
         override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
             val category = categories[position]
-            // Set emoji on the first line and category name on the second, separated by newline.
             holder.tvCategory.text = "${category.emoji}\n${category.name}"
-            // Center both the emoji and text.
             holder.tvCategory.gravity = Gravity.CENTER
             holder.itemView.setOnClickListener { onItemClick(category) }
         }

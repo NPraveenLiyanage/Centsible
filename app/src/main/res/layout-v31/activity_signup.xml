@@ -50,7 +50,7 @@
         android:id="@+id/tvCreateAccount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/create_account"
+        android:text="Create Account"
         android:textSize="28sp"
         android:textColor="@color/primary_dark"
         android:textStyle="bold"
@@ -62,7 +62,7 @@
         android:id="@+id/tvSignupSubtitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/sign_up_to_start_tracking_your_finances"
+        android:text="Sign up to start tracking your finances"
         android:textSize="16sp"
         android:textColor="@color/medium_gray"
         app:layout_constraintTop_toBottomOf="@id/tvCreateAccount"
@@ -104,7 +104,7 @@
                     android:id="@+id/etName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/full_name"
+                    android:hint="Full Name"
                     android:inputType="textPersonName"
                     android:padding="16dp" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -126,7 +126,7 @@
                     android:id="@+id/etEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/emailSignUp"
+                    android:hint="Email"
                     android:inputType="textEmailAddress"
                     android:padding="16dp" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -149,7 +149,7 @@
                     android:id="@+id/etPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/passwordSignUp"
+                    android:hint="Password"
                     android:inputType="textPassword"
                     android:padding="16dp" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -172,7 +172,7 @@
                     android:id="@+id/etConfirmPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/confirm_password"
+                    android:hint="Confirm Password"
                     android:inputType="textPassword"
                     android:padding="16dp" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -191,7 +191,7 @@
                 android:id="@+id/tvTerms"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@string/i_agree_to_the_terms_of_service_and_privacy_policy"
+                android:text="I agree to the Terms of Service and Privacy Policy"
                 android:textColor="@color/dark_gray"
                 app:layout_constraintTop_toTopOf="@id/cbTerms"
                 app:layout_constraintBottom_toBottomOf="@id/cbTerms"
@@ -203,7 +203,7 @@
                 android:id="@+id/btnSignUp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/create_accountSignUp"
+                android:text="Create Account"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 android:textAllCaps="false"
@@ -221,7 +221,7 @@
                 android:id="@+id/tvLoginPrompt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/already_have_an_account"
+                android:text="Already have an account?"
                 android:textColor="@color/dark_gray"
                 android:textSize="14sp"
                 app:layout_constraintTop_toBottomOf="@id/btnSignUp"
@@ -233,7 +233,7 @@
                 android:id="@+id/tvLogin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/log_in"
+                android:text="Log In"
                 android:textColor="@color/secondary"
                 android:textSize="16sp"
                 android:textStyle="bold"

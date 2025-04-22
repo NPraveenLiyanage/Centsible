@@ -1,19 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Set your desired status bar color -->
         <item name="android:statusBarColor">@color/my_status_bar_color</item>
-        <!-- If your status bar background is light, you may want dark icons. Use windowLightStatusBar for that. -->
         <item name="android:windowLightStatusBar">true</item>
     </style>
-    <!-- Optional: Style for CardView shadow (if you want centralized settings) -->
+
     <style name="Widget.Custom.CardView" parent="Widget.MaterialComponents.CardView">
         <item name="cardCornerRadius">12dp</item>
         <item name="cardElevation">4dp</item>
         <item name="cardBackgroundColor">@color/card_background</item>
     </style>
 
-    <!-- Add this to your styles.xml file -->
     <style name="TabTextAppearance" parent="TextAppearance.Design.Tab">
         <item name="android:textSize">14sp</item>
         <item name="android:textStyle">bold</item>
@@ -32,5 +29,23 @@
 
     <style name="FeedbackDialogTheme" parent="Theme.MaterialComponents.Dialog.Alert">
         <item name="android:windowBackground">@drawable/rounded_dialog_background</item>
+    </style>
+
+    <style name="CustomBottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="itemRippleColor">@android:color/transparent</item>
+        <item name="itemIconPadding">12dp</item>
+        <item name="itemIconSize">28dp</item>
+        <item name="itemTextAppearanceActive">@style/TextAppearance.BottomNavigationView.Active</item>
+        <item name="itemTextAppearanceInactive">@style/TextAppearance.BottomNavigationView.Inactive</item>
+    </style>
+
+
+    <style name="TextAppearance.BottomNavigationView.Active" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.BottomNavigationView.Inactive" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textSize">12sp</item>
     </style>
 </resources>
