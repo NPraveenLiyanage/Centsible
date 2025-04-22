@@ -21,7 +21,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Edit Transaction"
+        android:text="@string/edit_transaction"
         android:textSize="20sp"
         android:textStyle="bold"
         android:textColor="@color/primary_dark"
@@ -41,7 +41,7 @@
             android:id="@+id/tvSelectedCategoryIconBS"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:text="🏷️"
+            android:text="@string/common_icon"
             android:textSize="24sp"
             android:gravity="center" />
 
@@ -49,7 +49,7 @@
             android:id="@+id/tvSelectedCategoryBS"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Selected Category"
+            android:text="@string/selected_category"
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@color/primary_dark"
@@ -61,7 +61,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:hint="Transaction Title"
+        android:hint="@string/transaction_title"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         app:boxStrokeColor="@color/secondary"
         app:hintTextColor="@color/dark_gray">
@@ -78,7 +78,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:hint="Amount"
+        android:hint="@string/amount"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         app:boxStrokeColor="@color/secondary"
         app:startIconDrawable="@drawable/ic_money"
@@ -98,7 +98,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
-        android:hint="Date"
+        android:hint="@string/date"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         app:boxStrokeColor="@color/secondary"
         app:startIconDrawable="@drawable/ic_calendar"
@@ -110,7 +110,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clickable="true"
-            android:focusable="false"
+            android:focusable="true"
             android:textColor="@color/black" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -119,7 +119,7 @@
         android:id="@+id/btnSaveBS"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Save Changes"
+        android:text="@string/save_changes"
         android:textColor="@color/white"
         android:backgroundTint="@color/accent"
         android:paddingVertical="12dp"

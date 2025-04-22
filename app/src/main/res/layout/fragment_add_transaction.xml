@@ -19,7 +19,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Add Transaction"
+            android:text="@string/add_transaction"
             android:textSize="24sp"
             android:textStyle="bold"
             android:textColor="@color/primary_dark"
@@ -50,7 +50,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Select Category"
+            android:text="@string/select_category"
             android:textSize="16sp"
             android:textColor="@color/secondary_dark"
             android:layout_marginTop="16dp"
@@ -97,7 +97,7 @@
                     android:id="@+id/tvCategoryIcon"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:text="🏷️"
+                    android:text="@string/common_icon"
                     android:textSize="24sp"
                     android:gravity="center" />
 
@@ -105,7 +105,7 @@
                     android:id="@+id/tvSelectedCategory"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Selected Category"
+                    android:text="@string/selected_category"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:textColor="@color/primary_dark"
@@ -117,7 +117,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:hint="Transaction Title"
+                android:hint="@string/transaction_title"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 app:boxStrokeColor="@color/secondary">
 
@@ -132,7 +132,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:hint="Amount"
+                android:hint="@string/amount"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 app:boxStrokeColor="@color/secondary"
                 app:startIconDrawable="@drawable/ic_money"
@@ -150,7 +150,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:hint="Date"
+                android:hint="@string/date"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 app:boxStrokeColor="@color/secondary"
                 app:startIconDrawable="@drawable/ic_calendar"
@@ -161,7 +161,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clickable="true"
-                    android:focusable="false" />
+                    android:focusable="true" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Save Button -->
@@ -169,7 +169,7 @@
                 android:id="@+id/btnSave"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Save Transaction"
+                android:text="@string/save_transaction"
                 android:textColor="@color/white"
                 android:backgroundTint="@color/accent"
                 android:layout_marginTop="24dp"

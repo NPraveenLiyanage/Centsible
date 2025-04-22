@@ -39,4 +39,78 @@
     <string name="full_category_analysis">Full Category Analysis</string>
     <string name="close">Close</string>
 
+<!--    fragment_add_transaction.xml-->
+    <string name="add_transaction">Add Transaction</string>
+    <string name="select_category">Select Category</string>
+    <string name="common_icon">🏷️</string>
+    <string name="selected_category">Selected Category</string>
+    <string name="transaction_title">Transaction Title</string>
+    <string name="amount">Amount</string>
+    <string name="date">Date</string>
+    <string name="save_transaction">Save Transaction</string>
+
+<!--    fragment_analytics.xml-->
+    <string name="analytics">Analytics</string>
+    <string name="week">Week</string>
+    <string name="month">Month</string>
+    <string name="year">Year</string>
+    <string name="custom">Custom</string>
+    <string name="spending_by_category">Spending by Category</string>
+    <string name="category_breakdown">Category Breakdown</string>
+    <string name="view_all">View All</string>
+
+<!--    fragment_backup_restore.xml-->
+    <string name="settings_amp_backup"><![CDATA[Settings & Backup]]></string>
+    <string name="notifications">Notifications</string>
+    <string name="budget_alert">Budget Alert</string>
+    <string name="get_notified_when_you_re_close_to_your_budget_limit">Get notified when you\'re close to your budget limit</string>
+    <string name="daily_reminder">Daily Reminder</string>
+    <string name="receive_daily_reminders_to_track_your_expenses">Receive daily reminders to track your expenses</string>
+    <string name="currency">Currency</string>
+    <string name="data_management">Data Management</string>
+    <string name="keep_your_data_safe_by_creating_regular_backups_you_can_restore_your_data_anytime">Keep your data safe by creating regular backups. You can restore your data anytime.</string>
+    <string name="backup_data">Backup Data</string>
+    <string name="restore_data">Restore Data</string>
+    <string name="send_feedback">Send Feedback</string>
+    <string name="logout">Logout</string>
+
+<!--    fragment_budget_update.xml-->
+    <string name="budget_amount">Budget Amount</string>
+    <string name="enter_budget_amount">Enter budget amount</string>
+    <string name="set_monthly_budget">Set Monthly Budget</string>
+    <string name="info_icon">Info icon</string>
+    <string name="tip_set_a_realistic_budget_based_on_your_average_monthly_expenses_to_better_track_your_financial_health">Tip: Set a realistic budget based on your average monthly expenses to better track your financial health.</string>
+    <string name="save_budget">Save Budget</string>
+
+<!--    fragment_records.xml-->
+    <string name="monthly_budget_lkr0">Monthly Budget: LKR0</string>
+    <string name="tap_to_update">Tap to update</string>
+    <string name="status">Status</string>
+    <string name="good">Good</string>
+    <string name="this_month">This month</string>
+    <string name="lkr0_lkr0">LKR0 / LKR0</string>
+    <string name="view_all_Main">View All</string>
+
+<!--    item_category.xml-->
+    <string name="_10_food">🍔\nFood</string>
+    <string name="category">Category</string>
+    <string name="total_lkr0">Total: LKR0</string>
+
+<!--    item_onboarding.xml-->
+    <string name="onboarding_img">Onboarding_img</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+
+<!--    item_transaction.xml-->
+    <string name="tran_icon">🍔</string>
+    <string name="category_emoji">Category Emoji</string>
+    <string name="summary_goes_here">Summary goes here</string>
+    <string name="lkr_0">LKR 0</string>
+    <string name="delete_transaction">Delete Transaction</string>
+
+<!--    transaction_detail_bottom(used to edit)-->
+    <string name="edit_transaction">Edit Transaction</string>
+    <string name="save_changes">Save Changes</string>
+
+
 </resources>

@@ -14,7 +14,7 @@
         android:id="@+id/tvBudgetTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Set Monthly Budget"
+        android:text="@string/set_monthly_budget"
         android:textSize="24sp"
         android:textStyle="bold"
         android:textColor="@color/primary_dark"
@@ -39,7 +39,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Budget Amount"
+                android:text="@string/budget_amount"
                 android:textSize="16sp"
                 android:textColor="@color/primary_dark"
                 android:layout_marginBottom="8dp"/>
@@ -47,7 +47,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="      Enter budget amount"
+                android:hint="@string/enter_budget_amount"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 app:boxStrokeColor="@color/secondary"
                 app:hintTextColor="@color/dark_gray"
@@ -84,12 +84,12 @@
                 android:layout_height="32dp"
                 android:src="@drawable/ic_info"
                 app:tint="@color/secondary_dark"
-                android:contentDescription="Info icon" />
+                android:contentDescription="@string/info_icon" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Tip: Set a realistic budget based on your average monthly expenses to better track your financial health."
+                android:text="@string/tip_set_a_realistic_budget_based_on_your_average_monthly_expenses_to_better_track_your_financial_health"
                 android:textSize="14sp"
                 android:textColor="@color/primary_dark"
                 android:layout_marginStart="12dp"/>
@@ -101,7 +101,7 @@
         android:id="@+id/btnSaveBudget"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Save Budget"
+        android:text="@string/save_budget"
         android:textColor="@color/white"
         android:backgroundTint="@color/accent"
         android:layout_marginTop="24dp"

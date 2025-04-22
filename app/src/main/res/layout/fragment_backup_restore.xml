@@ -21,7 +21,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Settings &amp; Backup"
+            android:text="@string/settings_amp_backup"
             android:textSize="24sp"
             android:textStyle="bold"
             android:textColor="@color/primary_dark"
@@ -49,7 +49,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Notifications"
+                    android:text="@string/notifications"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:textColor="@color/primary_dark"
@@ -72,14 +72,14 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Budget Alert"
+                            android:text="@string/budget_alert"
                             android:textSize="16sp"
                             android:textColor="@color/primary_dark"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Get notified when you're close to your budget limit"
+                            android:text="@string/get_notified_when_you_re_close_to_your_budget_limit"
                             android:textSize="14sp"
                             android:textColor="@color/medium_gray"/>
                     </LinearLayout>
@@ -109,14 +109,14 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Daily Reminder"
+                            android:text="@string/daily_reminder"
                             android:textSize="16sp"
                             android:textColor="@color/primary_dark"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Receive daily reminders to track your expenses"
+                            android:text="@string/receive_daily_reminders_to_track_your_expenses"
                             android:textSize="14sp"
                             android:textColor="@color/medium_gray"/>
                     </LinearLayout>
@@ -154,7 +154,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Currency"
+                    android:text="@string/currency"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:textColor="@color/primary_dark"
@@ -190,7 +190,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Data Management"
+                    android:text="@string/data_management"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:textColor="@color/primary_dark"
@@ -199,7 +199,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Keep your data safe by creating regular backups. You can restore your data anytime."
+                    android:text="@string/keep_your_data_safe_by_creating_regular_backups_you_can_restore_your_data_anytime"
                     android:textSize="14sp"
                     android:textColor="@color/dark_gray"
                     android:layout_marginBottom="20dp"/>
@@ -209,7 +209,7 @@
                     android:id="@+id/btnBackup"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Backup Data"
+                    android:text="@string/backup_data"
                     android:textColor="@color/white"
                     android:backgroundTint="@color/accent"
                     android:paddingVertical="12dp"
@@ -223,7 +223,7 @@
                     android:id="@+id/btnRestore"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Restore Data"
+                    android:text="@string/restore_data"
                     android:textColor="@color/white"
                     android:backgroundTint="@color/secondary_dark"
                     android:paddingVertical="12dp"
@@ -238,7 +238,7 @@
             android:id="@+id/btnFeedback"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Send Feedback"
+            android:text="@string/send_feedback"
             android:textColor="@color/white"
             android:backgroundTint="@color/accent"
             android:paddingVertical="12dp"
@@ -251,7 +251,7 @@
             android:id="@+id/btnLogout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Logout"
+            android:text="@string/logout"
             android:textColor="@color/white"
             android:backgroundTint="@color/secondary"
             android:paddingVertical="12dp"

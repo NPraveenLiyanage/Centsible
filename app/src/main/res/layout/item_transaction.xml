@@ -32,10 +32,10 @@
                 android:id="@+id/tvCategoryIcon"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
-                android:text="🍔"
+                android:text="@string/tran_icon"
                 android:textSize="24sp"
                 android:gravity="center"
-                android:contentDescription="Category Emoji" />
+                android:contentDescription="@string/category_emoji" />
         </FrameLayout>
 
         <!-- Details Column -->
@@ -50,7 +50,7 @@
                 android:id="@+id/tvTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Transaction Title"
+                android:text="@string/transaction_title"
                 android:textSize="16sp"
                 android:textColor="@color/primary_dark"
                 android:textStyle="bold" />
@@ -59,7 +59,7 @@
                 android:id="@+id/tvDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Date"
+                android:text="@string/date"
                 android:textSize="14sp"
                 android:textColor="@color/medium_gray"
                 android:layout_marginTop="2dp" />
@@ -69,7 +69,7 @@
                 android:id="@+id/tvTransactionSummary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Summary goes here"
+                android:text="@string/summary_goes_here"
                 android:textSize="14sp"
                 android:textColor="@color/primary_dark"
                 android:visibility="gone" />
@@ -80,7 +80,7 @@
             android:id="@+id/tvAmount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="LKR 0"
+            android:text="@string/lkr_0"
             android:textSize="14sp"
             android:textStyle="bold"
             android:layout_marginEnd="8dp" />
@@ -93,7 +93,7 @@
             android:src="@drawable/ic_delete"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:padding="8dp"
-            android:contentDescription="Delete Transaction"
+            android:contentDescription="@string/delete_transaction"
             card_view:tint="@color/expense_red" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

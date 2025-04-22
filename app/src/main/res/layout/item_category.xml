@@ -23,7 +23,7 @@
             android:id="@+id/tvCategoryItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="🍔&#10;Food"
+            android:text="@string/_10_food"
             android:textSize="12sp"
             android:textColor="@color/primary_dark"
             android:fontFamily="sans-serif-medium"
