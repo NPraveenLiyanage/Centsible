@@ -19,12 +19,12 @@
 
     <!-- Bottom Sheet Title -->
     <TextView
+        android:id="@+id/tvBottomSheetTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/edit_transaction"
+        android:textColor="@color/primary_dark"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:textColor="@color/primary_dark"
         android:layout_marginBottom="16dp" />
 
     <!-- Display selected category with icon -->

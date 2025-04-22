@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import com.example.centsible.R
 import com.example.centsible.databinding.FragmentBudgetUpdateBinding
 import com.example.centsible.fragments.RecordsFragment
+import androidx.core.content.edit
 
 class BudgetUpdateFragment : Fragment() {
 
@@ -54,10 +55,13 @@ class BudgetUpdateFragment : Fragment() {
             if (budgetText.isNotEmpty()) {
                 val newBudget = budgetText.toDoubleOrNull()
                 if (newBudget != null) {
-                    sharedPref.edit().putFloat(BUDGET_KEY, newBudget.toFloat()).apply()
-                    Toast.makeText(requireContext(), "Budget updated: $newBudget", Toast.LENGTH_SHORT).show()
-                    // Redirect to RecordsFragment and update bottom navigation selection.
-                    redirectToRecordsFragment()
+                    if (newBudget == 0.0 || newBudget < 1000) {
+                        Toast.makeText(requireContext(), "Invalid budget entry", Toast.LENGTH_SHORT).show()
+                    } else {
+                        sharedPref.edit() { putFloat(BUDGET_KEY, newBudget.toFloat()) }
+                        Toast.makeText(requireContext(), "Budget updated: $newBudget", Toast.LENGTH_SHORT).show()
+                        redirectToRecordsFragment()
+                    }
                 } else {
                     Toast.makeText(requireContext(), "Invalid budget entry", Toast.LENGTH_SHORT).show()
                 }

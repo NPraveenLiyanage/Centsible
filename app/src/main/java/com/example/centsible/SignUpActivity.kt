@@ -36,6 +36,12 @@ class SignUpActivity : AppCompatActivity() {
                 Toast.makeText(this, "All fields are required", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
+
+            if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                Toast.makeText(this, "Please enter a valid email address", Toast.LENGTH_LONG).show()
+                return@setOnClickListener
+            }
+
             if (password != confirmPassword) {
                 Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
@@ -53,6 +59,16 @@ class SignUpActivity : AppCompatActivity() {
                 Toast.makeText(this, "User with this email already exists", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
+
+            if (!binding.cbTerms.isChecked) {
+                Toast.makeText(
+                    this,
+                    "Please agree to the Terms of Service and Privacy Policy",
+                    Toast.LENGTH_LONG
+                ).show()
+                return@setOnClickListener
+            }
+
 
             // Add new user.
             val newUser = User(email, password)

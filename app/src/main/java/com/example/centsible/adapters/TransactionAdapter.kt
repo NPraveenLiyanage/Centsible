@@ -52,7 +52,7 @@ class TransactionAdapter(
     )
 
     init {
-        // We enable stable IDs so that RecyclerView can optimize changes.
+        // enable stable IDs so that RecyclerView can optimize changes.
         setHasStableIds(true)
     }
 
@@ -69,7 +69,7 @@ class TransactionAdapter(
                 tvAmount.text = if (transaction.isIncome)
                                     "+$currencySymbol${transaction.amount}"
                                 else "-$currencySymbol${transaction.amount}"
-                // Optionally display the category summary.
+                //  display the category summary.
                 tvTransactionSummary.text = transaction.category
                 tvTransactionSummary.visibility = if (transaction.category.isNotEmpty()) View.VISIBLE else View.GONE
 
@@ -99,11 +99,7 @@ class TransactionAdapter(
         // Return a stable item id using the hash code of the transaction ID.
         return transactions[position].id.hashCode().toLong()
     }
-
-    /**
-     * Use DiffUtil to compare the old and new lists, update data,
-     * and dispatch changes for smooth animations.
-     */
+    
     fun updateData(newTransactions: MutableList<Transaction>) {
         val diffCallback = TransactionDiffCallback(transactions, newTransactions)
         val diffResult = DiffUtil.calculateDiff(diffCallback)

@@ -11,7 +11,8 @@
     <ImageView
         android:id="@+id/ivTopWave"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="180dp"
+        android:contentDescription="@string/topwave"
         android:scaleType="fitXY"
         android:src="@drawable/bg_signup_wave"
         app:layout_constraintTop_toTopOf="parent" />
@@ -19,8 +20,8 @@
     <!-- Back Button -->
     <ImageButton
         android:id="@+id/btnBack"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
         android:contentDescription="@string/back"
         android:src="@drawable/ic_back"
         android:background="?attr/selectableItemBackgroundBorderless"
@@ -43,14 +44,14 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="18dp" />
+        android:layout_marginTop="50dp" />
 
     <!-- Signup Title -->
     <TextView
         android:id="@+id/tvCreateAccount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Create Account"
+        android:text="@string/create_account"
         android:textSize="28sp"
         android:textColor="@color/primary_dark"
         android:textStyle="bold"
@@ -62,7 +63,7 @@
         android:id="@+id/tvSignupSubtitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sign up to start tracking your finances"
+        android:text="@string/sign_up_to_start_tracking_your_finances"
         android:textSize="16sp"
         android:textColor="@color/medium_gray"
         app:layout_constraintTop_toBottomOf="@id/tvCreateAccount"
@@ -104,7 +105,7 @@
                     android:id="@+id/etName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Full Name"
+                    android:hint="@string/full_name"
                     android:inputType="textPersonName"
                     android:padding="16dp" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -126,7 +127,7 @@
                     android:id="@+id/etEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Email"
+                    android:hint="@string/emailSignUp"
                     android:inputType="textEmailAddress"
                     android:padding="16dp" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -149,7 +150,7 @@
                     android:id="@+id/etPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Password"
+                    android:hint="@string/passwordSignUp"
                     android:inputType="textPassword"
                     android:padding="16dp" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -172,7 +173,7 @@
                     android:id="@+id/etConfirmPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Confirm Password"
+                    android:hint="@string/confirm_password"
                     android:inputType="textPassword"
                     android:padding="16dp" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -191,7 +192,7 @@
                 android:id="@+id/tvTerms"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="I agree to the Terms of Service and Privacy Policy"
+                android:text="@string/i_agree_to_the_terms_of_service_and_privacy_policy"
                 android:textColor="@color/dark_gray"
                 app:layout_constraintTop_toTopOf="@id/cbTerms"
                 app:layout_constraintBottom_toBottomOf="@id/cbTerms"
@@ -203,7 +204,7 @@
                 android:id="@+id/btnSignUp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Create Account"
+                android:text="@string/create_accountSignUp"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 android:textAllCaps="false"
@@ -221,7 +222,7 @@
                 android:id="@+id/tvLoginPrompt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Already have an account?"
+                android:text="@string/already_have_an_account"
                 android:textColor="@color/dark_gray"
                 android:textSize="14sp"
                 app:layout_constraintTop_toBottomOf="@id/btnSignUp"
@@ -233,7 +234,7 @@
                 android:id="@+id/tvLogin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Log In"
+                android:text="@string/log_in"
                 android:textColor="@color/secondary"
                 android:textSize="16sp"
                 android:textStyle="bold"

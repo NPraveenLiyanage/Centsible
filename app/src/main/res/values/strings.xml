@@ -28,6 +28,7 @@
     <string name="create_accountSignUp">Create Account</string>
     <string name="already_have_an_account">Already have an account?</string>
     <string name="log_in">Log In</string>
+    <string name="topwave">topWave</string>
 
     <!--    dialog_feedback-->
     <string name="we_value_your_feedback">We Value Your Feedback</string>
@@ -111,6 +112,8 @@
 <!--    transaction_detail_bottom(used to edit)-->
     <string name="edit_transaction">Edit Transaction</string>
     <string name="save_changes">Save Changes</string>
+    <string name="update_transaction">Update Transaction</string>
+
 
 
 </resources>

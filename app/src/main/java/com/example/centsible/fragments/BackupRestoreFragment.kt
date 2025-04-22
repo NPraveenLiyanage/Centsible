@@ -28,15 +28,11 @@ class BackupRestoreFragment : Fragment() {
     private var _binding: FragmentBackupRestoreBinding? = null
     private val binding get() = _binding!!
 
-    // SharedPreferences used for settings and data.
     private val sharedPref by lazy {
         requireContext().getSharedPreferences("PersonalFinancePrefs", Context.MODE_PRIVATE)
     }
     private val transactionsKey = "transactions"
     private val backupFileName = "transaction_backup.json"
-    private val gson = Gson()
-
-    // Keys for various settings.
     private val KEY_BUDGET_ALERT = "budget_alert_enabled"
     private val KEY_DAILY_REMINDER = "daily_reminder_enabled"
     private val currencyKey = "selected_currency"
@@ -102,13 +98,11 @@ class BackupRestoreFragment : Fragment() {
     }
 
     private fun setupCurrencySpinner() {
-        // List of available currencies with symbols.
         val currencies = listOf("LKR (Rs)","USD ($)", "EUR (€)", "GBP (£)", "INR (₹)", "JPY (¥)")
         val adapter = ArrayAdapter(requireContext(), R.layout.simple_spinner, currencies)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         binding.spinnerCurrency.adapter = adapter
 
-        // Retrieve previously saved currency; default to "USD ($)".
         val savedCurrency = sharedPref.getString(currencyKey, "LKR (Rs)")
         val position = currencies.indexOf(savedCurrency)
         if (position >= 0) {
@@ -119,7 +113,6 @@ class BackupRestoreFragment : Fragment() {
             override fun onItemSelected(parent: AdapterView<*>, view: View, pos: Int, id: Long) {
                 val selected = currencies[pos]
                 sharedPref.edit().putString(currencyKey, selected).apply()
-                // Optionally, trigger a UI refresh in fragments/adapters using currency.
             }
             override fun onNothingSelected(parent: AdapterView<*>) {}
         }

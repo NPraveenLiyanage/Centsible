@@ -44,7 +44,7 @@ class TransactionDetailBottomSheet : BottomSheetDialogFragment() {
         // For new transactions.
         fun newInstance(category: CategoryItem, isIncome: Boolean): TransactionDetailBottomSheet {
             val args = Bundle().apply {
-                putString(ARG_CATEGORY, category.name) // Only sending the name; emoji is for display
+                putString(ARG_CATEGORY, category.name)
                 putBoolean(ARG_IS_INCOME, isIncome)
                 putBoolean(ARG_IS_EDIT, false)
             }
@@ -92,6 +92,13 @@ class TransactionDetailBottomSheet : BottomSheetDialogFragment() {
         isIncomeSelected = arguments?.getBoolean(ARG_IS_INCOME) ?: false
         isEdit = arguments?.getBoolean(ARG_IS_EDIT, false) ?: false
 
+        // Update the Bottom Sheet Title according to form type.
+        binding.tvBottomSheetTitle.text = if (isEdit) {
+            getString(R.string.edit_transaction)
+        } else {
+            getString(R.string.add_transaction)
+        }
+
         if (isEdit) {
             // Edit mode: prepopulate fields.
             transactionId = arguments?.getString(ARG_TRANSACTION_ID)
@@ -102,7 +109,7 @@ class TransactionDetailBottomSheet : BottomSheetDialogFragment() {
             binding.tvSelectedCategoryBS.text = categoryName
             selectedCategory = CategoryItem(categoryName ?: "Category", "")
             // Update button text to indicate editing.
-            binding.btnSaveBS.text = "Update Transaction"
+            binding.btnSaveBS.text = getString(R.string.update_transaction)
         } else {
             // New transaction mode.
             val categoryName = arguments?.getString(ARG_CATEGORY, "Category")
@@ -129,6 +136,8 @@ class TransactionDetailBottomSheet : BottomSheetDialogFragment() {
             calendar.get(Calendar.MONTH),
             calendar.get(Calendar.DAY_OF_MONTH)
         )
+        // Disable future dates
+        dialog.datePicker.maxDate = calendar.timeInMillis
         dialog.show()
     }
 
