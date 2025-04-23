@@ -142,7 +142,6 @@ class AddTransactionFragment : Fragment() {
         })
     }
 
-    // Load category list into the RecyclerView.
     private fun loadCategories(categories: List<CategoryItem>) {
         val adapter = CategoryAdapter(categories) { category ->
             val bottomSheet = TransactionDetailBottomSheet.newInstance(category, isIncomeSelected)

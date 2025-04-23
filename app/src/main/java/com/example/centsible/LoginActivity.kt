@@ -16,7 +16,7 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
     private val PREFS_NAME = "MyAppPrefs"
-    private val KEY_USERS = "users"            // stored as a JSON list of User objects
+    private val KEY_USERS = "users"
     private val KEY_CURRENT_USER = "current_user"
 
     private val gson = Gson()
@@ -26,7 +26,6 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Option to navigate to the SignUp screen.
         binding.tvSignUp.setOnClickListener {
             startActivity(Intent(this, SignUpActivity::class.java))
         }

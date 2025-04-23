@@ -17,7 +17,6 @@ class NotificationHelper(private val context: Context) {
     }
 
     private fun createNotificationChannel() {
-        // Create the notification channel only if API 26+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
                 channelId,
@@ -35,7 +34,7 @@ class NotificationHelper(private val context: Context) {
     fun sendBudgetAlertNotification(title: String, message: String) {
         Log.d("NotificationHelper", "Sending notification: $title - $message")
         val notification = NotificationCompat.Builder(context, channelId)
-            .setSmallIcon(R.drawable.ic_category) // Ensure this drawable exists; try a system icon for testing if needed.
+            .setSmallIcon(R.drawable.ic_category)
             .setContentTitle(title)
             .setContentText(message)
             .setAutoCancel(true)

@@ -36,7 +36,7 @@ class OnBoardingActivity : AppCompatActivity() {
         val adapter = OnBoardingAdapter()
         binding.viewPager.adapter = adapter
 
-        // Show the "Get Started" button only on the last page.
+        // Show the "Get Started" button.
         binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 binding.btnGetStarted.visibility =

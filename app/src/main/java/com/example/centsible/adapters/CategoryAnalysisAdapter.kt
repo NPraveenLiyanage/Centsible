@@ -12,7 +12,6 @@ class CategoryAnalysisAdapter(
 
     private val categories = categoryTotals.keys.toList()
 
-    // Mapping categories to their associated emojis.
     private val categoryEmojis = mapOf(
         "Food" to "🍔",
         "Transport" to "🚗",
@@ -73,11 +72,9 @@ class CategoryAnalysisAdapter(
 
         holder.binding.tvTotal.text = "Total: $currencySymbol${String.format("%.2f", total)}"
 
-        // Set the emoji for the category.
         val emoji = categoryEmojis[category] ?: "❓"
         holder.binding.tvCategoryAnalysisIcon.text = emoji
 
-        // Invoke the click listener if provided.
         holder.binding.root.setOnClickListener {
             onCategoryClick?.invoke(category)
         }

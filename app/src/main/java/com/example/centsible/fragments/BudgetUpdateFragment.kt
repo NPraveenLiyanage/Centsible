@@ -18,7 +18,6 @@ class BudgetUpdateFragment : Fragment() {
 
     private var _binding: FragmentBudgetUpdateBinding? = null
     private val binding get() = _binding!!
-
     private lateinit var sharedPref: SharedPreferences
     private val BUDGET_KEY = "monthly_budget"
 

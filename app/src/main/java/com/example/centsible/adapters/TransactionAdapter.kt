@@ -14,7 +14,6 @@ class TransactionAdapter(
     private val onDeleteClick: (Transaction) -> Unit
 ) : RecyclerView.Adapter<TransactionAdapter.TransactionViewHolder>() {
 
-    // Mapping category names to their associated emojis.
     private val categoryEmojis = mapOf(
         "Food" to "🍔",
         "Transport" to "🚗",
@@ -60,20 +59,21 @@ class TransactionAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(transaction: Transaction) {
             with(binding) {
-                // Set category emoji (default to a question mark if not found)
                 tvCategoryIcon.text = categoryEmojis[transaction.category] ?: "❓"
                 // Bind transaction details.
                 tvTitle.text = transaction.title
                 tvDate.text = transaction.date
                 val currencySymbol = com.example.centsible.CurrencyManager.getCurrencySymbol(root.context)
                 tvAmount.text = if (transaction.isIncome)
-                                    "+$currencySymbol${transaction.amount}"
-                                else "-$currencySymbol${transaction.amount}"
+                {
+                    "+$currencySymbol${transaction.amount}"
+                }else {
+                    "-$currencySymbol${transaction.amount}"
+                }
                 //  display the category summary.
                 tvTransactionSummary.text = transaction.category
                 tvTransactionSummary.visibility = if (transaction.category.isNotEmpty()) View.VISIBLE else View.GONE
 
-                // Set click listeners for editing and deletion.
                 root.setOnClickListener { onItemClick(transaction) }
                 ibDelete.setOnClickListener { onDeleteClick(transaction) }
             }
@@ -96,7 +96,6 @@ class TransactionAdapter(
     }
 
     override fun getItemId(position: Int): Long {
-        // Return a stable item id using the hash code of the transaction ID.
         return transactions[position].id.hashCode().toLong()
     }
     

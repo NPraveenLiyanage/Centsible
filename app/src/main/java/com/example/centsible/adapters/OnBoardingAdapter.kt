@@ -8,7 +8,6 @@ import com.example.centsible.databinding.ItemOnboardingBinding
 
 class OnBoardingAdapter : RecyclerView.Adapter<OnBoardingAdapter.OnBoardingViewHolder>() {
 
-    // Hardcoded arrays for the three onboarding pages.
     private val titles = arrayOf(
         "Welcome",
         "Track Expenses",

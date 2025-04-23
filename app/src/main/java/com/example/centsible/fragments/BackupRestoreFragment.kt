@@ -170,7 +170,7 @@ class BackupRestoreFragment : Fragment() {
             .show()
     }
 
-    // Shows a custom feedback dialog (using a custom layout in dialog_feedback.xml).
+    // Shows a feedback dialog .
     private fun showFeedbackDialog() {
         val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_feedback, null)
         val etFeedback = dialogView.findViewById<com.google.android.material.textfield.TextInputEditText>(R.id.etFeedback)

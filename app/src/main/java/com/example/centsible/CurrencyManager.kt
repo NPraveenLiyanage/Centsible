@@ -6,9 +6,7 @@ object CurrencyManager {
     private const val PREF_CURRENCY_KEY = "selected_currency"
     fun getCurrencySymbol(context: Context): String {
         val sharedPref = context.getSharedPreferences("PersonalFinancePrefs", Context.MODE_PRIVATE)
-        // For example, the stored value is "USD ($)". Adjust the default as needed.
         val stored = sharedPref.getString(PREF_CURRENCY_KEY, "LKR (Rs)")
-        // Extract the content inside the parentheses, if available.
         stored?.let {
             val regex = "\\((.*?)\\)".toRegex()
             val match = regex.find(it)
@@ -16,6 +14,6 @@ object CurrencyManager {
                 return match.groups[1]?.value ?: "Rs"
             }
         }
-        return "Rs" // default symbol if extraction fails
+        return "Rs"
     }
 }

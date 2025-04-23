@@ -21,7 +21,6 @@ class SignUpActivity : AppCompatActivity() {
         binding = ActivitySignupBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Back button functionality: Navigate to the LoginActivity.
         binding.btnBack.setOnClickListener {
             startActivity(Intent(this, LoginActivity::class.java))
             finish()

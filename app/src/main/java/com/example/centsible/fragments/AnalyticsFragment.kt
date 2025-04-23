@@ -36,14 +36,11 @@ class AnalyticsFragment : Fragment() {
 
     private var _binding: FragmentAnalyticsBinding? = null
     private val binding get() = _binding!!
-
     private var transactionList: MutableList<Transaction> = mutableListOf()
     private val sharedPref by lazy { requireContext().getSharedPreferences("PersonalFinancePrefs", Context.MODE_PRIVATE) }
     private val transactionsKey = "transactions"
     private val gson = Gson()
     private lateinit var adapter: CategoryAnalysisAdapter
-
-    // For custom period filtering.
     private var customStartDate: Date? = null
     private var customEndDate: Date? = null
 
@@ -63,7 +60,6 @@ class AnalyticsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         loadTransactions()
 
-        // Setup ChipGroup for period selection.
         binding.chipGroupPeriod.setOnCheckedChangeListener { _, checkedId ->
             if (checkedId == binding.chipCustom.id) {
                 // When Custom is selected, show a dialog sequence to pick dates.
@@ -72,15 +68,14 @@ class AnalyticsFragment : Fragment() {
                 // Reset any previously set custom dates.
                 customStartDate = null
                 customEndDate = null
-                // For Week, Month, or Year, update analytics immediately.
                 val isExpense = binding.tabs.selectedTabPosition == 0
                 showAnalytics(isExpense)
             }
         }
 
-        // Setup TabLayout for Income/Expense selection.
         binding.tabs.addTab(binding.tabs.newTab().setText("Expense"))
         binding.tabs.addTab(binding.tabs.newTab().setText("Income"))
+
         binding.tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 val isExpense = tab?.position == 0
@@ -93,7 +88,6 @@ class AnalyticsFragment : Fragment() {
         // Default: show Expense analytics.
         showAnalytics(isExpense = true)
 
-        // Setup the "View All" Button click listener.
         binding.btnViewAll.setOnClickListener {
             showViewAllDialog()
         }
@@ -119,7 +113,6 @@ class AnalyticsFragment : Fragment() {
                 val transCal = Calendar.getInstance().apply { time = transactionDate }
                 when (selectedChipId) {
                     binding.chipWeek.id -> {
-                        // Last 7 days.
                         val sevenDaysAgo = Calendar.getInstance().apply { add(Calendar.DAY_OF_YEAR, -7) }
                         transactionDate.after(sevenDaysAgo.time) && !transactionDate.after(todayCal.time)
                     }
@@ -135,9 +128,7 @@ class AnalyticsFragment : Fragment() {
                         transCal.get(Calendar.YEAR) == currentYear
                     }
                     binding.chipCustom.id -> {
-                        // Must have valid custom dates.
                         if (customStartDate != null && customEndDate != null) {
-                            // Include transactions on the boundary dates.
                             !transactionDate.before(customStartDate) && !transactionDate.after(customEndDate)
                         } else {
                             false
@@ -152,7 +143,6 @@ class AnalyticsFragment : Fragment() {
     }
 
     private fun showAnalytics(isExpense: Boolean) {
-        // Filter transaction list based on the selected period.
         val filteredTransactions = getFilteredTransactions(transactionList)
         val relevantTransactions = if (isExpense) {
             filteredTransactions.filter { !it.isIncome }
@@ -195,7 +185,6 @@ class AnalyticsFragment : Fragment() {
     }
 
     private fun showViewAllDialog() {
-        // Recompute category totals from filtered transactions.
         val filteredTransactions = getFilteredTransactions(transactionList)
         val isExpense = binding.tabs.selectedTabPosition == 0
         val relevantTransactions = if (isExpense) {
@@ -206,7 +195,6 @@ class AnalyticsFragment : Fragment() {
         val categoryTotals = relevantTransactions.groupBy { it.category }
             .mapValues { entry -> entry.value.sumOf { it.amount } }
 
-        // Create custom dialog
         val dialog = Dialog(requireContext())
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setContentView(R.layout.dialog_view_all_transactions)
@@ -216,27 +204,22 @@ class AnalyticsFragment : Fragment() {
             ViewGroup.LayoutParams.WRAP_CONTENT
         )
 
-        // Set up RecyclerView
         val rvDialog = dialog.findViewById<RecyclerView>(R.id.rvDialogCategoryAnalysis)
         rvDialog.layoutManager = LinearLayoutManager(requireContext())
 
-        // Pass the Map directly without converting to List<Pair>
         val dialogAdapter = CategoryAnalysisAdapter(categoryTotals) { category ->
             dialog.dismiss()
             Toast.makeText(requireContext(), "Clicked on $category", Toast.LENGTH_SHORT).show()
         }
         rvDialog.adapter = dialogAdapter
 
-        // Set close button click listener
         dialog.findViewById<MaterialButton>(R.id.btnClose).setOnClickListener {
             dialog.dismiss()
         }
 
-        // Set dialog title based on expense/income
         val titleText = if (isExpense) "Expense Categories" else "Income Categories"
         dialog.findViewById<TextView>(R.id.tvDialogTitle).text = titleText
 
-        // Apply animation to dialog appearance
         dialog.window?.attributes?.windowAnimations = R.style.DialogAnimation
 
         dialog.show()
@@ -253,7 +236,7 @@ class AnalyticsFragment : Fragment() {
                 startCal.set(startYear, startMonth, startDay)
                 customStartDate = startCal.time
 
-                // Now prompt for End Date.
+                // prompt for End Date.
                 val endCal = Calendar.getInstance()
                 android.app.DatePickerDialog(
                     requireContext(),
@@ -262,11 +245,9 @@ class AnalyticsFragment : Fragment() {
                         customEndDate = endCal.time
                         if (customEndDate!!.before(customStartDate)) {
                             Toast.makeText(requireContext(), "End date must be after start date", Toast.LENGTH_SHORT).show()
-                            // Clear custom dates if invalid.
                             customStartDate = null
                             customEndDate = null
                         } else {
-                            // Once valid dates are chosen, update the Chip text to show selected range.
                             binding.chipCustom.text = "${dateFormat.format(customStartDate)} to ${dateFormat.format(customEndDate)}"
                         }
                         // After picking custom dates (even if invalid), update analytics.

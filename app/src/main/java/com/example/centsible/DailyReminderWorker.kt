@@ -9,17 +9,14 @@ class DailyReminderWorker(appContext: Context, workerParameters: WorkerParameter
     Worker(appContext, workerParameters) {
 
     override fun doWork(): Result {
-        // Log to verify execution
         Log.d("DailyReminderWorker", "Worker is running, sending notification.")
 
-        // Create an instance of NotificationHelper and send the daily reminder
         val notificationHelper = NotificationHelper(applicationContext)
         notificationHelper.sendBudgetAlertNotification(
             title = "Daily Expense Reminder",
             message = "Don't forget to add your daily expenses!"
         )
 
-        // Indicate whether the work finished successfully
         return Result.success()
     }
 }

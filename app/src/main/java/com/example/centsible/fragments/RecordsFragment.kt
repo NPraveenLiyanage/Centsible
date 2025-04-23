@@ -28,13 +28,11 @@ class RecordsFragment : Fragment() {
 
     private var _binding: FragmentRecordsBinding? = null
     private val binding get() = _binding!!
-
     private val KEY_BUDGET_ALERT = "budget_alert_enabled"
     private var transactionList: MutableList<Transaction> = mutableListOf()
     private lateinit var transactionAdapter: TransactionAdapter
     private val gson = Gson()
     private lateinit var sharedPref: android.content.SharedPreferences
-
     private val budgetKey = "monthly_budget"
     private val transactionsKey = "transactions"
     private var monthlyBudget: Double = 0.0
@@ -54,13 +52,12 @@ class RecordsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Check and request notification permission for Android 13+
+        // Check and request notification permission
         checkAndRequestNotificationPermission()
 
-        // When the user taps the Monthly Budget TextView, navigate to the beautiful custom screen.
         binding.tvMonthlyBudget.setOnClickListener { showSetBudgetDialog() }
 
-        // Configure RecyclerView.
+        //RecyclerView.
         binding.rvTransactions.layoutManager = LinearLayoutManager(requireContext())
         transactionAdapter = TransactionAdapter(
             transactionList,
@@ -191,7 +188,6 @@ class RecordsFragment : Fragment() {
         }
     }
 
-    // Helper function to extract the currency symbol from the stored currency string.
     private fun getCurrencySymbol(): String {
         val savedCurrency = sharedPref.getString("selected_currency", "LKR (Rs)") ?: "LKR (Rs)"
         val regex = "\\((.*?)\\)".toRegex()

@@ -141,6 +141,7 @@ class TransactionDetailBottomSheet : BottomSheetDialogFragment() {
         dialog.show()
     }
 
+    //validation
     private fun saveTransaction() {
         val title = binding.etTitleBS.text.toString().trim()
         val amountStr = binding.etAmountBS.text.toString().trim()
@@ -168,7 +169,7 @@ class TransactionDetailBottomSheet : BottomSheetDialogFragment() {
         }
 
         if (isEdit) {
-            // Edit mode: update existing transaction.
+            // Edit modeS
             val id = transactionId ?: UUID.randomUUID().toString()
             val updatedTransaction = Transaction(
                 id = id,
@@ -186,7 +187,7 @@ class TransactionDetailBottomSheet : BottomSheetDialogFragment() {
             }
             Toast.makeText(requireContext(), "Transaction updated", Toast.LENGTH_SHORT).show()
         } else {
-            // New transaction: add it.
+            // New transaction
             val newTransaction = Transaction(
                 id = UUID.randomUUID().toString(),
                 title = title,
@@ -204,7 +205,7 @@ class TransactionDetailBottomSheet : BottomSheetDialogFragment() {
         editor.putString(transactionsKey, gson.toJson(transactionList))
         editor.apply()
 
-        // Invoke callback to refresh data without closing the host activity.
+        // Invoke callback to refresh data.
         onTransactionSaved?.invoke()
         dismiss()
     }
