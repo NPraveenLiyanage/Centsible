@@ -149,7 +149,7 @@ class RecordsFragment : Fragment() {
         dialog.show()
     }
 
-    // Request POST_NOTIFICATIONS permission for Android 13+.
+    // Request POST_NOTIFICATIONS permission.
     private fun checkAndRequestNotificationPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.POST_NOTIFICATIONS)

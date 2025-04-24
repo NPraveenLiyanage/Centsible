@@ -47,14 +47,14 @@ class LoginActivity : AppCompatActivity() {
                 mutableListOf()
             }
 
-            // Check for a matching user (case-insensitive email).
+            // Check for a matching user.
             val user = users.find { it.email.equals(email, ignoreCase = true) }
             if (user == null) {
                 Toast.makeText(this, "User not found. Please sign up.", Toast.LENGTH_SHORT).show()
             } else if (user.password != password) {
                 Toast.makeText(this, "Incorrect password", Toast.LENGTH_SHORT).show()
             } else {
-                // Successful login: store current user and navigate to MainActivity.
+                // Successful login store current user
                 sharedPref.edit().putString(KEY_CURRENT_USER, user.email).apply()
                 Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show()
                 startActivity(Intent(this, MainActivity::class.java))
