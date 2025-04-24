@@ -153,7 +153,6 @@ class AddTransactionFragment : Fragment() {
         binding.rvCategories.adapter = adapter
     }
 
-    // RecyclerView Adapter for category items.
     inner class CategoryAdapter(
         private val categories: List<CategoryItem>,
         private val onItemClick: (CategoryItem) -> Unit

@@ -74,6 +74,7 @@
     <string name="restore_data">Restore Data</string>
     <string name="send_feedback">Send Feedback</string>
     <string name="logout">Logout</string>
+    <string name="export_as_excel">Export as Excel\n</string>
 
 <!--    fragment_budget_update.xml-->
     <string name="budget_amount">Budget Amount</string>
@@ -113,7 +114,6 @@
     <string name="edit_transaction">Edit Transaction</string>
     <string name="save_changes">Save Changes</string>
     <string name="update_transaction">Update Transaction</string>
-
 
 
 </resources>

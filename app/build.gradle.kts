@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.centsible"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
@@ -51,7 +51,6 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     implementation (libs.androidx.recyclerview)
-    // For JSON serialization with Gson
     implementation (libs.gson)
     implementation (libs.kotlin.android.extensions.runtime)
     implementation(libs.androidx.navigation.fragment.ktx)
@@ -60,6 +59,8 @@ dependencies {
     implementation (libs.androidx.work.runtime.ktx)
     implementation (libs.androidx.viewpager2)
     implementation (libs.material.v180)
+    implementation (libs.poi.ooxml)
+
 
 
 }

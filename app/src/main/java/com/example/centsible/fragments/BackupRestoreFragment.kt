@@ -3,8 +3,11 @@ package com.example.centsible.fragments
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
+import android.media.MediaScannerConnection
 import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,9 +21,13 @@ import androidx.work.WorkManager
 import com.example.centsible.DailyReminderWorker
 import com.example.centsible.LoginActivity
 import com.example.centsible.R
+import com.example.centsible.Transaction
 import com.example.centsible.databinding.FragmentBackupRestoreBinding
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import org.apache.poi.xssf.usermodel.XSSFWorkbook
+import java.io.File
+import java.io.FileOutputStream
 import java.util.concurrent.TimeUnit
 
 class BackupRestoreFragment : Fragment() {
@@ -95,6 +102,18 @@ class BackupRestoreFragment : Fragment() {
 
         // Initialize the Currency Spinner.
         setupCurrencySpinner()
+
+        binding.btnExportExcel.setOnClickListener {
+            val transactionsJson = sharedPref.getString(transactionsKey, "[]")
+            val transactionType = object : TypeToken<List<Transaction>>() {}.type
+            val transactions: List<Transaction> = Gson().fromJson(transactionsJson, transactionType)
+            val success = exportTransactionsToExcel(requireContext(), transactions)
+            if (success) {
+                Toast.makeText(requireContext(), "Export successful!", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(requireContext(), "Export failed.", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun setupCurrencySpinner() {
@@ -203,6 +222,52 @@ class BackupRestoreFragment : Fragment() {
             dialog.dismiss()
         }
         dialog.show()
+    }
+
+    fun exportTransactionsToExcel(context: Context, transactions: List<Transaction>): Boolean {
+        try {
+            val workbook = XSSFWorkbook()
+            val sheet = workbook.createSheet("Transactions")
+
+            val headerRow = sheet.createRow(0)
+            headerRow.createCell(0).setCellValue("Title")
+            headerRow.createCell(1).setCellValue("Date")
+            headerRow.createCell(2).setCellValue("Amount")
+            headerRow.createCell(3).setCellValue("Category")
+            headerRow.createCell(4).setCellValue("Type")
+
+            for ((index, transaction) in transactions.withIndex()) {
+                val row = sheet.createRow(index + 1)
+                row.createCell(0).setCellValue(transaction.title)
+                row.createCell(1).setCellValue(transaction.date)
+                row.createCell(2).setCellValue(transaction.amount)
+                row.createCell(3).setCellValue(transaction.category)
+                row.createCell(4).setCellValue(if (transaction.isIncome) "Income" else "Expense")
+            }
+
+
+            for (i in 0..4) {
+                sheet.setColumnWidth(i, 15 * 256)
+            }
+
+            val fileName = "Transactions.xlsx"
+            val downloadsDir: File = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+            val file = File(downloadsDir, fileName)
+
+            FileOutputStream(file).use { fos ->
+                workbook.write(fos)
+            }
+            workbook.close()
+
+            MediaScannerConnection.scanFile(context, arrayOf(file.absolutePath), null, null)
+
+            Log.d("ExportExcel", "Excel file saved at: ${file.absolutePath}")
+
+            return true
+        } catch (e: Exception) {
+            e.printStackTrace()
+            return false
+        }
     }
 
     override fun onDestroyView() {

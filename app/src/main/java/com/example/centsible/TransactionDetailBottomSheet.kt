@@ -100,7 +100,7 @@ class TransactionDetailBottomSheet : BottomSheetDialogFragment() {
         }
 
         if (isEdit) {
-            // Edit mode: prepopulate fields.
+            // Edit mode prepopulate fields.
             transactionId = arguments?.getString(ARG_TRANSACTION_ID)
             binding.etTitleBS.setText(arguments?.getString(ARG_TITLE, ""))
             binding.etAmountBS.setText(arguments?.getDouble(ARG_AMOUNT, 0.0).toString())
@@ -120,7 +120,6 @@ class TransactionDetailBottomSheet : BottomSheetDialogFragment() {
         // Setup date field.
         binding.etDateBS.inputType = InputType.TYPE_NULL
         binding.etDateBS.setOnClickListener { showDatePicker() }
-
         binding.btnSaveBS.setOnClickListener { saveTransaction() }
     }
 
