@@ -56,7 +56,7 @@ Centsible is a personal finance management Android app that empowers you to trac
 ### Installation
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/yourusername/Centsible.git
+   https://github.com/NPraveenLiyanage/Centsible.git
    ```
 2. **Open the project in Android Studio.**
 3. **Build the project** to download all required dependencies.
