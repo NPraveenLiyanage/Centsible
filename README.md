@@ -66,10 +66,6 @@ Centsible is a personal finance management Android app that empowers you to trac
 
 Contributions are welcome! If you have ideas, bug fixes, or improvements, please open an issue or submit a pull request. For major changes, please discuss them in an issue first.
 
-## License
-
-This project is licensed under the MIT License – see the [LICENSE](LICENSE) file for details.
-
 ## Acknowledgments
 
 - Thanks to the Android team for continuous innovation and documentation.
